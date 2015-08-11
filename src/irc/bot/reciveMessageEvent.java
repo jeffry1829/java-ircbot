@@ -1,12 +1,21 @@
 package irc.bot;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Socket;
 
-public class reciveMessageEvent implements CustomEvent{
+public class reciveMessageEvent implements CustomEvent,Runnable{
 	
-	 Socket server=JIRCBOTPlugin.getServer();
+	Socket server;
+	BufferedReader reader;
+	
+	public reciveMessageEvent() throws IOException{
+		server=JIRCBOTPlugin.getServer();
+		reader=new BufferedReader( new InputStreamReader( server.getInputStream() ) );
+	}
 	
 	@Override
 	public String getEventName() {
@@ -32,5 +41,31 @@ public class reciveMessageEvent implements CustomEvent{
 		}
 		
 	}
+
+	@Override
+	public void run() {
+		
+		String readline;
+		
+		try {
+			readline = reader.readLine();
+				while( readline != null ){
+			
+					Do();
+			
+					if( readline.matches(".* PRIVMSG .*")){
+						System.out.println(readline.substring( readline.indexOf("PRIVMSG")+9 ));
+					}
+					else{
+						System.out.println( readline );
+					}
+				}
+		}
+		catch(IOException e1){
+			e1.printStackTrace();
+		}
+	}
+	
+	
 	
 }
