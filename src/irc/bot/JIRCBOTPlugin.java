@@ -4,14 +4,14 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-abstract class JIRCBOTPlugin{
+abstract class JIRCBOTPlugin implements CommandExecutor{
 	
 	String server , nickname , channel;
 	private static Socket socket;
 	private static PrintWriter writer;
 	
 	public static ArrayList<JIRCBOTListener> jircbotlistenerlist=new ArrayList<JIRCBOTListener>();
-	public static ArrayList<ICommand> icommandlist=new ArrayList<ICommand>();
+	public static ArrayList<CommandExecutor> commandlist=new ArrayList<CommandExecutor>();
 	
 	public JIRCBOTPlugin(String server , String nickname , String channel){
 		this.server=server;
@@ -35,8 +35,8 @@ abstract class JIRCBOTPlugin{
 		jircbotlistenerlist.add(jircbotlistenertlistener);
 	}
 	
-	public void registerAnCommand(ICommand icommandexecutor){
-		icommandlist.add(icommandexecutor);
+	public void registerAnCommand(CommandExecutor icommandexecutor){
+		commandlist.add(icommandexecutor);
 	}
 	
 	public static Socket getServer(){
@@ -48,6 +48,10 @@ abstract class JIRCBOTPlugin{
 	}
 	
 	public boolean execCommand(){
+		return false;
+	}
+	
+	public boolean onCommand(String username , String prefix , String command , String[] argument){
 		return false;
 	}
 	

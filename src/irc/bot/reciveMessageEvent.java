@@ -41,23 +41,28 @@ public class reciveMessageEvent implements CustomEvent,Runnable{
 		}
 		
 	}
-
+	
 	@Override
 	public void run() {
 		
-		String readline;
+		while(true){
 		
-		try {
-			readline = reader.readLine();
-				while( readline != null ){
+			String readline;
+		
+			try {
+				readline = reader.readLine();
+					while( readline != null ){
 			
-					Do();
+						Do();
 					
-				}
+					}
+			}
+			catch(IOException e1){
+				e1.printStackTrace();
+			}
+		
 		}
-		catch(IOException e1){
-			e1.printStackTrace();
-		}
+	
 	}
 	
 	
