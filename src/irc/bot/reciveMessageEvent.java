@@ -52,13 +52,7 @@ public class reciveMessageEvent implements CustomEvent,Runnable{
 				while( readline != null ){
 			
 					Do();
-			
-					if( readline.matches(".* PRIVMSG .*")){
-						System.out.println(readline.substring( readline.indexOf("PRIVMSG")+9 ));
-					}
-					else{
-						System.out.println( readline );
-					}
+					
 				}
 		}
 		catch(IOException e1){
