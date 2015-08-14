@@ -17,6 +17,7 @@ abstract class JIRCBOTPlugin implements CommandExecutor{
 		this.server=server;
 		this.nickname=nickname;
 		this.channel=channel;
+		
 		try{
 			socket=new Socket(server , 6667);
 			writer=new PrintWriter(socket.getOutputStream());
@@ -28,6 +29,8 @@ abstract class JIRCBOTPlugin implements CommandExecutor{
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		
 		
 	}
 	
