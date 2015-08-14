@@ -1,4 +1,4 @@
-package irc.bot;
+package ysitd.ircbot.java.api;
 
 public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 	

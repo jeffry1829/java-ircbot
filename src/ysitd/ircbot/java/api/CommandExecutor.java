@@ -1,4 +1,4 @@
-package irc.bot;
+package ysitd.ircbot.java.api;
 
 interface CommandExecutor {
 	String getName();

@@ -1,4 +1,4 @@
-package irc.bot;
+package ysitd.ircbot.java.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
