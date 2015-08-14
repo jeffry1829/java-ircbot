@@ -1,5 +1,6 @@
 package irc.bot;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ abstract class JIRCBOTPlugin implements CommandExecutor{
 	public static ArrayList<JIRCBOTListener> jircbotlistenerlist=new ArrayList<JIRCBOTListener>();
 	public static ArrayList<CommandExecutor> commandlist=new ArrayList<CommandExecutor>();
 	
-	public JIRCBOTPlugin(String server , String nickname , String channel){
+	public JIRCBOTPlugin(String server , String nickname , String channel) throws ClassNotFoundException, IOException{
 		this.server=server;
 		this.nickname=nickname;
 		this.channel=channel;
@@ -30,7 +31,7 @@ abstract class JIRCBOTPlugin implements CommandExecutor{
 			e.printStackTrace();
 		}
 		
-		
+		staticMethod.loadjar();
 		
 	}
 	
