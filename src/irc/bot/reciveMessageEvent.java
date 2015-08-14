@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-public class reciveMessageEvent implements CustomEvent,Runnable{
+public class reciveMessageEvent implements CustomEvent , Runnable{
 	
 	Socket server;
 	BufferedReader reader;
@@ -51,7 +51,5 @@ public class reciveMessageEvent implements CustomEvent,Runnable{
 		}
 	
 	}
-	
-	
 	
 }
