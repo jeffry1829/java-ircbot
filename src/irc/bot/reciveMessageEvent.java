@@ -3,8 +3,6 @@ package irc.bot;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.Socket;
 
 public class reciveMessageEvent implements CustomEvent,Runnable{
@@ -26,19 +24,8 @@ public class reciveMessageEvent implements CustomEvent,Runnable{
 	@Override
 	public void Do() {
 		
-		for(  JIRCBOTListener event :  JIRCBOTPlugin.jircbotlistenerlist ){
-			Method[] methods=event.getClass().getMethods();
-			for( Method method : methods ){
-				if( method.getParameterTypes().equals(this) ){ //為什麼沒有contains?
-					try {
-						method.invoke(this); //觸發了自己寫的Method
-					} catch (IllegalAccessException | IllegalArgumentException
-							| InvocationTargetException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
+		//invoke overrided event
+		staticMethod.invokeOverrideEvent(this);
 		
 	}
 	
