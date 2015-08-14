@@ -14,6 +14,14 @@ abstract class JIRCBOTPlugin implements CommandExecutor{
 	public static ArrayList<JIRCBOTListener> jircbotlistenerlist=new ArrayList<JIRCBOTListener>();
 	public static ArrayList<CommandExecutor> commandlist=new ArrayList<CommandExecutor>();
 	
+	static{
+		try {
+			staticMethod.loadjar();
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public JIRCBOTPlugin(String server , String nickname , String channel) throws ClassNotFoundException, IOException{
 		this.server=server;
 		this.nickname=nickname;
@@ -30,8 +38,6 @@ abstract class JIRCBOTPlugin implements CommandExecutor{
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		staticMethod.loadjar();
 		
 	}
 	
