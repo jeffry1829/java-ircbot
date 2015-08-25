@@ -34,10 +34,9 @@ class JIRCBOTPlugin implements CommandExecutor{
 			socket=new Socket(server , port);
 			writer=new PrintWriter(socket.getOutputStream());
 			
-			writer.print("NICK " + nickname + "\r\n");
-			writer.print("USER " + nickname + " 8 * : I am a Bot \r\n");
-			writer.print("JOIN " + channel + "\r\n");
-			
+			writer.println("NICK " + nickname);
+			writer.println("USER " + nickname + " " + msg);
+			writer.println("JOIN " + channel);
 			writer.flush();
 		}
 		catch(Exception e){
