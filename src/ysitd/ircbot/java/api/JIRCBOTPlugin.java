@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-abstract class JIRCBOTPlugin implements CommandExecutor{
+class JIRCBOTPlugin implements CommandExecutor{
 	
 	String server , nickname , channel;
 	private static Socket socket;
@@ -22,17 +22,17 @@ abstract class JIRCBOTPlugin implements CommandExecutor{
 		}
 	}
 	
-	public JIRCBOTPlugin(String server , String nickname , String channel) throws ClassNotFoundException, IOException{
+	public JIRCBOTPlugin(String server , String nickname , String channel , int port , String msg){
 		this.server=server;
 		this.nickname=nickname;
 		this.channel=channel;
 		
 		try{
-			socket=new Socket(server , 6667);
+			socket=new Socket(server , port);
 			writer=new PrintWriter(socket.getOutputStream());
 			
 			writer.println("NICK " + nickname);
-			writer.println("USER " + nickname + " 8 * : I am a Bot");
+			writer.println("USER " + nickname + " " + msg);
 			writer.println("JOIN " + channel);
 		}
 		catch(Exception e){
@@ -41,11 +41,13 @@ abstract class JIRCBOTPlugin implements CommandExecutor{
 		
 	}
 	
-	public void registerAnEvent(JIRCBOTListener jircbotlistenertlistener){
+	public JIRCBOTPlugin(){}
+	
+	public static void registerAnEvent(JIRCBOTListener jircbotlistenertlistener){
 		jircbotlistenerlist.add(jircbotlistenertlistener);
 	}
 	
-	public void registerAnCommand(CommandExecutor icommandexecutor){
+	public static void registerAnCommand(CommandExecutor icommandexecutor){
 		commandlist.add(icommandexecutor);
 	}
 	
@@ -57,16 +59,24 @@ abstract class JIRCBOTPlugin implements CommandExecutor{
 		return writer;
 	}
 	
-	public boolean execCommand(){
-		return false;
-	}
-	
 	public boolean onCommand(String username , String prefix , String command , String[] argument){
 		return false;
 	}
 	
-	abstract void onEnable();
+	public void onEnable(){}
 	
-	abstract void onDisable();
+	public void onDisable(){}
+
+	@Override
+	public String getName() {
+		// need plugin support
+		return null;
+	};
+	/*讓我想想更好的寫法*/
+	static void shutdown(){
+		JIRCBOTPlugin plugin=new JIRCBOTPlugin();
+		plugin.onDisable();
+		System.exit(0);
+	}
 	
 }
