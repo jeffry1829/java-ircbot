@@ -18,14 +18,14 @@ class JIRCBOTPlugin implements CommandExecutor{
 		try {
 			staticMethod.loadjar();
 		} catch (ClassNotFoundException e) {
-			System.out.println("沒有plugin喔");
+			System.out.println("沒有plugin喔"); //modifly later
 		}
 		   catch (IOException e1) {
 			   e1.printStackTrace();
 		}
 	}
 	
-	public JIRCBOTPlugin(String server , String nickname , String channel , int port , String msg){
+	public JIRCBOTPlugin(String server , String nickname , String channel , int port , String msg) throws IOException{
 		this.server=server;
 		this.nickname=nickname;
 		this.channel=channel;
@@ -34,13 +34,20 @@ class JIRCBOTPlugin implements CommandExecutor{
 			socket=new Socket(server , port);
 			writer=new PrintWriter(socket.getOutputStream());
 			
-			writer.println("NICK " + nickname);
-			writer.println("USER " + nickname + " " + msg);
-			writer.println("JOIN " + channel);
+			writer.print("NICK " + nickname + "\r\n");
+			writer.print("USER " + nickname + " 8 * : I am a Bot \r\n");
+			writer.print("JOIN " + channel + "\r\n");
+			
+			writer.flush();
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		Thread commandHandler=new Thread( new CommandHandler()  );
+		Thread reciveMessageEvent=new Thread(  new reciveMessageEvent() );
+		commandHandler.start();
+		reciveMessageEvent.start();
 		
 	}
 	
