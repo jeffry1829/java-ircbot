@@ -17,8 +17,11 @@ class JIRCBOTPlugin implements CommandExecutor{
 	static{
 		try {
 			staticMethod.loadjar();
-		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("沒有plugin喔");
+		}
+		   catch (IOException e1) {
+			   e1.printStackTrace();
 		}
 	}
 	
