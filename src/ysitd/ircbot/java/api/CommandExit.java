@@ -13,7 +13,6 @@ public class CommandExit implements CommandExecutor{
 	public CommandExit() throws IOException{
 		server=JIRCBOTPlugin.getServer();
 		reader=new BufferedReader( new InputStreamReader( server.getInputStream() ) );
-		JIRCBOTPlugin.registerAnCommand(this);
 	}
 	
 	@Override
@@ -25,7 +24,7 @@ public class CommandExit implements CommandExecutor{
 	@Override
 	public boolean onCommand(String username, String prefix, String command, String[] argument) {
 		//wait for permission feature complete
-		if( username.startsWith("petjelinux") ){
+		if( username.startsWith("petjelinux") && command.equals("exit") ){
 			JIRCBOTPlugin.shutdown();
 		}
 		return false;

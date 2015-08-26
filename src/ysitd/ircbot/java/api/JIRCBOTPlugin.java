@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-class JIRCBOTPlugin implements CommandExecutor{
+public class JIRCBOTPlugin implements CommandExecutor{
 	
 	String server , nickname , channel;
 	private static Socket socket;
@@ -43,11 +43,12 @@ class JIRCBOTPlugin implements CommandExecutor{
 			e.printStackTrace();
 		}
 		
-		Thread commandHandler=new Thread( new CommandHandler()  );
-		Thread reciveMessageEvent=new Thread(  new reciveMessageEvent() );
-		commandHandler.start();
-		reciveMessageEvent.start();
+		registerAnCommand( new CommandExit() );
 		
+		Thread commandHandler=new Thread( new CommandHandler()  );
+		Thread recivemessageEvent=new Thread(  new reciveMessageEvent() );
+		commandHandler.start();
+		recivemessageEvent.start();
 	}
 	
 	public JIRCBOTPlugin(){}

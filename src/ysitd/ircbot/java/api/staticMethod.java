@@ -32,7 +32,7 @@ class staticMethod {
 	static void loadjar() throws ClassNotFoundException, IOException{
 		File folder=new File("./");
 		JarEntry je;
-		Enumeration e;
+		Enumeration<JarEntry> e;
 		ArrayList<JarFile> jarfile=new ArrayList<JarFile>();
 		for(File file : folder.listFiles()){
 			if( file.getName().matches(".*.jar$") )
