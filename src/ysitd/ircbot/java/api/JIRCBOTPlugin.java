@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class JIRCBOTPlugin implements CommandExecutor{
 	
-	protected String server , nickname , channel;
+	private static String server , nickname , channel;
 	private static Socket socket;
 	private static PrintWriter writer;
 	
@@ -15,10 +15,10 @@ public class JIRCBOTPlugin implements CommandExecutor{
 	public static ArrayList<CommandExecutor> commandlist=new ArrayList<CommandExecutor>();
 	public static ArrayList<JIRCBOTPlugin> jircbotpluginlist=new ArrayList<JIRCBOTPlugin>();
 	
-	public JIRCBOTPlugin(String server , String nickname , String channel , int port , String msg) throws IOException{
-		this.server=server;
-		this.nickname=nickname;
-		this.channel=channel;
+	public JIRCBOTPlugin(String serverr , String nicknamee , String channell , int port , String msg) throws IOException{
+		server=serverr;
+		nickname=nicknamee;
+		channel=channell;
 		
 		try{
 			socket=new Socket(server , port);
@@ -61,6 +61,14 @@ public class JIRCBOTPlugin implements CommandExecutor{
 
 	public static PrintWriter getWriter(){
 		return writer;
+	}
+	
+	public static String getNickname(){
+		return nickname;
+	}
+	
+	public static String getChannel(){
+		return channel;
 	}
 	
 	public static void say(String tosay , String channel){

@@ -25,7 +25,7 @@ public class Main extends JIRCBOTPlugin{
 	@Override
 	public boolean onCommand(String username , String prefix , String command , String[] argument){
 		if(argument[0].equals("ping")){
-			say("pong", channel); //channel inherit from superclass
+			say("pong", getChannel());
 		}
 		return false;	
 	}

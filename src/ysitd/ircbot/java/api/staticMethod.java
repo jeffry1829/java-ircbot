@@ -19,7 +19,7 @@ public class staticMethod {
 			for( Method method : methods ){
 				if( method.getParameterTypes().equals(e) ){ //為什麼沒有contains?
 					try {
-						method.invoke(e,e); //觸發了自己寫的Method | invoke(owner,args[])
+						method.invoke(e,e); //觸發了自己寫的Method | invoke(owner,args[]) IMPORTENT EVOLUTION!
 					} catch (IllegalAccessException | IllegalArgumentException
 							| InvocationTargetException e1) {
 						e1.printStackTrace();
@@ -58,7 +58,7 @@ public class staticMethod {
 				String classname=je.getName().substring(0, je.getName().length() - 6);
 				classname=classname.replace('/', '.');
 				try {
-					loader.loadClass(classname).newInstance();
+					loader.loadClass(classname).newInstance(); //IMPORTENT EVOLUTION!
 				} catch (InstantiationException | IllegalAccessException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
