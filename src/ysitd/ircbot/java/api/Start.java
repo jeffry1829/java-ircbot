@@ -7,10 +7,12 @@ import java.io.IOException;
  */
 public class Start {
 	public static void main(String[] args){
-		JIRCBOTPlugin MPlugin;
+		
 		try {
-			MPlugin = new JIRCBOTPlugin("irc.freenode.net","javabot_ysitd_","#ysitd",6667,"8 * : I am a Bot");
-			MPlugin.onEnable();
+			JIRCBOTPlugin MPlugin = new JIRCBOTPlugin("irc.freenode.net","javabot_ysitd_","#ysitd",6667,"8 * : I am a Bot");
+			for(JIRCBOTPlugin e : JIRCBOTPlugin.jircbotpluginlist){
+				staticMethod.invokeOverrideonEnable(e);
+			}	
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

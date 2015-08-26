@@ -34,6 +34,7 @@ class staticMethod {
 		JarEntry je;
 		Enumeration<JarEntry> e;
 		ArrayList<JarFile> jarfile=new ArrayList<JarFile>();
+		ClassLoader loader;
 		for(File file : folder.listFiles()){
 			if( file.getName().matches(".*.jar$") )
 				jarfile.add(new JarFile(file.getAbsolutePath()));
@@ -54,11 +55,28 @@ class staticMethod {
 				 //-6 because of .class
 				String classname=je.getName().substring(0, je.getName().length() - 6);
 				classname=classname.replace('/', '.');
-				ClassLoader loader=new URLClassLoader(url);
+				loader=new URLClassLoader(url); //resource, close?
 				loader.loadClass(classname);
 			}
 		}
+		
+	}
 	
+	static void invokeOverrideonEnable(JIRCBOTPlugin e){
+		for( JIRCBOTPlugin plugin :  JIRCBOTPlugin.jircbotpluginlist ){
+			Method[] methods=plugin.getClass().getMethods();
+			for( Method method : methods ){
+				System.out.println(method.getName()); //無反應
+				if( method.getName().equals("onEnable") ){
+					try {
+						method.invoke(null); //觸發了自己寫的Method
+					} catch (IllegalAccessException | IllegalArgumentException
+							| InvocationTargetException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		}
 	}
 	
 }

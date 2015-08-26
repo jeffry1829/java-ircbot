@@ -13,6 +13,7 @@ public class JIRCBOTPlugin implements CommandExecutor{
 	
 	public static ArrayList<JIRCBOTListener> jircbotlistenerlist=new ArrayList<JIRCBOTListener>();
 	public static ArrayList<CommandExecutor> commandlist=new ArrayList<CommandExecutor>();
+	public static ArrayList<JIRCBOTPlugin> jircbotpluginlist=new ArrayList<JIRCBOTPlugin>();
 	
 	static {
 		try {
@@ -59,6 +60,10 @@ public class JIRCBOTPlugin implements CommandExecutor{
 	
 	public static void registerAnCommand(CommandExecutor icommandexecutor){
 		commandlist.add(icommandexecutor);
+	}
+	
+	public static void registerAnmain( JIRCBOTPlugin jircbotplugin){
+		jircbotpluginlist.add(jircbotplugin);
 	}
 	
 	public static Socket getServer(){

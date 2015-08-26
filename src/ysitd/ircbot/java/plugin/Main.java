@@ -3,6 +3,11 @@ package ysitd.ircbot.java.plugin;
 import ysitd.ircbot.java.api.*;
 
 public class Main extends JIRCBOTPlugin{
+	
+	static {
+		JIRCBOTPlugin.registerAnmain(new Main());
+	}
+	
 	@Override
 	public void onEnable(){
 		System.out.println("Plugin Enabled!");
