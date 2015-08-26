@@ -37,14 +37,12 @@ public class CommandHandler implements Runnable{
 			String username;
 			try{
 				while( ( msline=reader.readLine() ) != null){
-					if( msline.matches("\bPRIVMSG\b") ){
+					if( msline.matches(".* PRIVMSG .*") ){
 						username=new String(msline).substring(1 , msline.indexOf("!" , 1)); //result="petjelinux"
-						String[] arr=msline.split(":.*:");//result={要修還需要修一陣子 , 所以能夠給我一段嗎 包括對話}
-						msline=msline.substring(arr[0].length());//result="要修還需要修一陣子 , 所以能夠給我一段嗎 包括對話"
-						if( msline.startsWith("\\") ){ //prefix setting還有event開始了
+						msline=msline.replaceFirst(":.*:","");//result="要修還需要修一陣子 , 所以能夠給我一段嗎 包括對話"
+						if( msline.startsWith("]") ){
 							for(CommandExecutor command : JIRCBOTPlugin.commandlist){
-								new UserCommandProcessEvent(username , "\\" , command.getName() , msline.replaceFirst("\\" , "").split(" ") , command).Do();
-								System.out.println(msline.replaceFirst("\\" , "").split(" ")); //debug
+								new UserCommandProcessEvent(username , "]" , command.getName() , msline.replaceFirst("]" , "").split(" ") , command).Do();
 							}
 						}
 					}

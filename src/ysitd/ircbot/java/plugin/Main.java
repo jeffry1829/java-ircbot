@@ -18,8 +18,13 @@ public class Main extends JIRCBOTPlugin{
 		System.out.println("Plugin Disabled!");
 	}
 	@Override
+	public String getName(){
+		final String name="ping";
+		return name;
+	}
+	@Override
 	public boolean onCommand(String username , String prefix , String command , String[] argument){
-		if(command.equals("ping")){
+		if(argument[0].equals("ping")){
 			JIRCBOTPlugin.say("pong", channel); //channel inherit from superclass
 		}
 		return false;	

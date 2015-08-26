@@ -83,7 +83,7 @@ class staticMethod {
 		for( JIRCBOTPlugin plugin :  JIRCBOTPlugin.jircbotpluginlist ){
 			Method[] methods=plugin.getClass().getMethods();
 			for( Method method : methods ){
-				System.out.println(method.getName()); //無反應
+				System.out.println(method.getName());
 				if( method.getName().equals("onDisable") ){
 					try {
 						method.invoke(null); //觸發了自己寫的Method

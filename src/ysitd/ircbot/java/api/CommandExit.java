@@ -23,9 +23,8 @@ public class CommandExit implements CommandExecutor{
 
 	@Override
 	public boolean onCommand(String username, String prefix, String command, String[] argument) {
-		System.out.println("get in"); //無反應
 		//wait for permission feature complete
-		if( username.startsWith("petjelinux") && command.equals(getName()) ){
+		if( username.startsWith("petjelinux") && argument[0].equals(getName()) ){
 			JIRCBOTPlugin.shutdown();
 		}
 		return false;
