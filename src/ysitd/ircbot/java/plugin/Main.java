@@ -20,8 +20,7 @@ public class Main extends JIRCBOTPlugin{
 	@Override
 	public boolean onCommand(String username , String prefix , String command , String[] argument){
 		if(command.equals("ping")){
-			getWriter().println("pong");
-			getWriter().flush();
+			JIRCBOTPlugin.say("pong", channel); //channel inherit from superclass
 		}
 		return false;	
 	}

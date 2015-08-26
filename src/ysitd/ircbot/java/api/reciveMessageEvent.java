@@ -7,6 +7,11 @@ import java.net.Socket;
 
 public class reciveMessageEvent implements CustomEvent , Runnable{
 	
+	/*
+	 * @Runnable
+	 * 若得到message呼叫實作以後的Event( Do() )
+	 */
+	
 	Socket server;
 	BufferedReader reader;
 	

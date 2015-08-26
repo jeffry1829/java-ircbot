@@ -2,6 +2,13 @@ package ysitd.ircbot.java.api;
 
 public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 	
+	/*
+	 * @CustomEvent
+	 * 從CommandHandler獲取資訊後
+	 * 先呼叫實作的Event( Do() )
+	 * 再來使用給予的資訊進行呼叫onCommand
+	 */
+	
 	String username , prefix , command;
 	String[] argument;
 	CommandExecutor ce;

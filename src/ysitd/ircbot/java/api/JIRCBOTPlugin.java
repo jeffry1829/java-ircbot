@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class JIRCBOTPlugin implements CommandExecutor{
 	
-	String server , nickname , channel;
+	protected String server , nickname , channel;
 	private static Socket socket;
 	private static PrintWriter writer;
 	
@@ -74,6 +74,11 @@ public class JIRCBOTPlugin implements CommandExecutor{
 		return writer;
 	}
 	
+	public static void say(String tosay , String channel){
+		 JIRCBOTPlugin.getWriter().println("PRIVMSG "+channel+" : "+tosay);
+		 JIRCBOTPlugin.getWriter().flush();
+	}
+	
 	public boolean onCommand(String username , String prefix , String command , String[] argument){
 		return false;
 	}
@@ -89,8 +94,9 @@ public class JIRCBOTPlugin implements CommandExecutor{
 	};
 	/*讓我想想更好的寫法*/
 	static void shutdown(){
-		JIRCBOTPlugin plugin=new JIRCBOTPlugin();
-		plugin.onDisable();
+		for(JIRCBOTPlugin e : jircbotpluginlist){
+			staticMethod.invokeOverrideonDisable(e);
+		}
 		System.exit(0);
 	}
 	

@@ -6,8 +6,15 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 public class CommandHandler implements Runnable{
-	//其實算是CommandEvent
-	//不過不使用Event的語法banfile
+	/*其實算是CommandEvent
+	  *不過不使用Event的語法banfile
+	  *@Runnable
+	  *@prefix=\
+	  *解析後若為指令
+	  *呼叫UserCommandProcessEvent
+	  *同時傳入資訊
+	  *再由Event處理 , 呼叫
+	  */
 	Socket server;
 	BufferedReader reader;
 	
@@ -33,7 +40,7 @@ public class CommandHandler implements Runnable{
 						if( msline.startsWith("\\") ){ //prefix setting還有event開始了.
 							for(CommandExecutor command : JIRCBOTPlugin.commandlist){
 								new UserCommandProcessEvent(username , "\\" , command.getName() , msline.replaceFirst("\\" , "").split(" ") , command).Do();
-								System.out.println(msline.replaceFirst("\\" , "").split(" "));
+								System.out.println(msline.replaceFirst("\\" , "").split(" ")); //debug
 							}
 						}
 					}
