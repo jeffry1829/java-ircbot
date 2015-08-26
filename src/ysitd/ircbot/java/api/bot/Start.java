@@ -1,6 +1,9 @@
-package ysitd.ircbot.java.api;
+package ysitd.ircbot.java.api.bot;
 
 import java.io.IOException;
+
+import ysitd.ircbot.java.api.JIRCBOTPlugin;
+import ysitd.ircbot.java.api.staticMethod;
 
 /**
  * 創見於 2015/8/8

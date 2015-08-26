@@ -25,8 +25,14 @@ public class Main extends JIRCBOTPlugin{
 	@Override
 	public boolean onCommand(String username , String prefix , String command , String[] argument){
 		if(argument[0].equals("ping")){
-			JIRCBOTPlugin.say("pong", channel); //channel inherit from superclass
+			say("pong", channel); //channel inherit from superclass
 		}
 		return false;	
+	}
+	//感覺像是Override但實際上才不是呢 >_< XDD
+	public void reciveEvent(reciveMessageEvent e){
+		if(e.getALine().startsWith("PING")){
+			getWriter().println("PONG " + e.getALine().substring(5));
+		}
 	}
 }

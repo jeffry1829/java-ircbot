@@ -14,6 +14,7 @@ public class reciveMessageEvent implements CustomEvent , Runnable{
 	
 	Socket server;
 	BufferedReader reader;
+	String readline;
 	
 	public reciveMessageEvent() throws IOException{
 		server=JIRCBOTPlugin.getServer();
@@ -34,13 +35,15 @@ public class reciveMessageEvent implements CustomEvent , Runnable{
 		
 	}
 	
+	public String getALine(){
+		return readline;
+	}
+	
 	@Override
 	public void run() {
 		
 		while(true){
-		
-			String readline;
-		
+			
 			try {
 				readline = reader.readLine();
 					while( readline != null ){

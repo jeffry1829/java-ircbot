@@ -11,9 +11,9 @@ import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-class staticMethod {
+public class staticMethod {
 	
-	static void invokeOverrideEvent(CustomEvent e){
+	public static void invokeOverrideEvent(CustomEvent e){
 		for(  JIRCBOTListener event :  JIRCBOTPlugin.jircbotlistenerlist ){
 			Method[] methods=event.getClass().getMethods();
 			for( Method method : methods ){
@@ -29,7 +29,7 @@ class staticMethod {
 		}
 	}
 	
-	static void loadjar() throws ClassNotFoundException, IOException{
+	public static void loadjar() throws ClassNotFoundException, IOException{
 		File folder=new File("./");
 		JarEntry je;
 		Enumeration<JarEntry> e;
@@ -62,7 +62,7 @@ class staticMethod {
 		
 	}
 	
-	static void invokeOverrideonEnable(JIRCBOTPlugin e){
+	public static void invokeOverrideonEnable(JIRCBOTPlugin e){
 		for( JIRCBOTPlugin plugin :  JIRCBOTPlugin.jircbotpluginlist ){
 			Method[] methods=plugin.getClass().getMethods();
 			for( Method method : methods ){
@@ -79,11 +79,11 @@ class staticMethod {
 		}
 	}
 	
-	static void invokeOverrideonDisable(JIRCBOTPlugin e){
+	public static void invokeOverrideonDisable(JIRCBOTPlugin e){
 		for( JIRCBOTPlugin plugin :  JIRCBOTPlugin.jircbotpluginlist ){
 			Method[] methods=plugin.getClass().getMethods();
 			for( Method method : methods ){
-				System.out.println(method.getName());
+				System.out.println(method.getName()); //無反應
 				if( method.getName().equals("onDisable") ){
 					try {
 						method.invoke(null); //觸發了自己寫的Method
