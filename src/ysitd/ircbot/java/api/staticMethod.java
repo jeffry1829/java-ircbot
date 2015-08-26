@@ -62,38 +62,4 @@ public class staticMethod {
 		
 	}
 	
-	public static void invokeOverrideonEnable(JIRCBOTPlugin e){
-		for( JIRCBOTPlugin plugin :  JIRCBOTPlugin.jircbotpluginlist ){
-			Method[] methods=plugin.getClass().getMethods();
-			for( Method method : methods ){
-				System.out.println(method.getName()); //無反應
-				if( method.getName().equals("onEnable") ){
-					try {
-						method.invoke(null); //觸發了自己寫的Method
-					} catch (IllegalAccessException | IllegalArgumentException
-							| InvocationTargetException e1) {
-						e1.printStackTrace();
-					}
-				}
-			}
-		}
-	}
-	
-	public static void invokeOverrideonDisable(JIRCBOTPlugin e){
-		for( JIRCBOTPlugin plugin :  JIRCBOTPlugin.jircbotpluginlist ){
-			Method[] methods=plugin.getClass().getMethods();
-			for( Method method : methods ){
-				System.out.println(method.getName()); //無反應
-				if( method.getName().equals("onDisable") ){
-					try {
-						method.invoke(null); //觸發了自己寫的Method
-					} catch (IllegalAccessException | IllegalArgumentException
-							| InvocationTargetException e1) {
-						e1.printStackTrace();
-					}
-				}
-			}
-		}
-	}
-	
 }

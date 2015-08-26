@@ -95,7 +95,7 @@ public class JIRCBOTPlugin implements CommandExecutor{
 	/*讓我想想更好的寫法*/
 	static void shutdown(){
 		for(JIRCBOTPlugin e : jircbotpluginlist){
-			staticMethod.invokeOverrideonDisable(e);
+			e.onDisable();
 		}
 		System.exit(0);
 	}
