@@ -15,17 +15,6 @@ public class JIRCBOTPlugin implements CommandExecutor{
 	public static ArrayList<CommandExecutor> commandlist=new ArrayList<CommandExecutor>();
 	public static ArrayList<JIRCBOTPlugin> jircbotpluginlist=new ArrayList<JIRCBOTPlugin>();
 	
-	static {
-		try {
-			staticMethod.loadjar();
-		} catch (ClassNotFoundException e) {
-			System.out.println("沒有plugin喔"); //modifly later
-		}
-		   catch (IOException e1) {
-			   e1.printStackTrace();
-		}
-	}
-	
 	public JIRCBOTPlugin(String server , String nickname , String channel , int port , String msg) throws IOException{
 		this.server=server;
 		this.nickname=nickname;

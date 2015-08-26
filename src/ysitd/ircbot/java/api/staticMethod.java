@@ -19,7 +19,7 @@ public class staticMethod {
 			for( Method method : methods ){
 				if( method.getParameterTypes().equals(e) ){ //為什麼沒有contains?
 					try {
-						method.invoke(e); //觸發了自己寫的Method
+						method.invoke(e,e); //觸發了自己寫的Method | invoke(owner,args[])
 					} catch (IllegalAccessException | IllegalArgumentException
 							| InvocationTargetException e1) {
 						e1.printStackTrace();
@@ -36,7 +36,8 @@ public class staticMethod {
 		ArrayList<JarFile> jarfile=new ArrayList<JarFile>();
 		ClassLoader loader;
 		for(File file : folder.listFiles()){
-			if( file.getName().matches(".*.jar$") )
+			if( file.getName().matches(".*.jar$") &&
+					!file.getName().equals("javaircbot.jar"))
 				jarfile.add(new JarFile(file.getAbsolutePath()));
 		}
 		
@@ -56,7 +57,12 @@ public class staticMethod {
 				 //-6 because of .class
 				String classname=je.getName().substring(0, je.getName().length() - 6);
 				classname=classname.replace('/', '.');
-				loader.loadClass(classname);
+				try {
+					loader.loadClass(classname).newInstance();
+				} catch (InstantiationException | IllegalAccessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
 		
