@@ -14,7 +14,7 @@ public class JIRCBOTPlugin implements CommandExecutor{
 	public static ArrayList<JIRCBOTListener> jircbotlistenerlist=new ArrayList<JIRCBOTListener>();
 	public static ArrayList<CommandExecutor> commandlist=new ArrayList<CommandExecutor>();
 	
-	static{
+	static {
 		try {
 			staticMethod.loadjar();
 		} catch (ClassNotFoundException e) {

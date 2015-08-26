@@ -8,11 +8,11 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 	private boolean canceled;
 	
 	public UserCommandProcessEvent(String username , String prefix , String command , String[] argument , CommandExecutor ce){
-		username=this.username;
-		prefix=this.prefix;
-		command=this.command;
-		argument=this.argument;
-		ce=this.ce;
+		this.username=username;
+		this.prefix=prefix;
+		this.command=command;
+		this.argument=argument;
+		this.ce=ce;
 	}
 	
 	@Override
