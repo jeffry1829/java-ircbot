@@ -44,18 +44,18 @@ public class staticMethod {
 		for(int i=0;i<jarfile.size();i++){
 			url[i]=new URL("jar:file:" + jarfile.get(i).getName() + "!/");
 		}
+		loader= URLClassLoader.newInstance(url); //resource, close?
 		
 		for(JarFile j : jarfile){
 			e=j.entries();
 			while(e.hasMoreElements()){
-				 je=(JarEntry)e.nextElement();
+				 je=e.nextElement();
 				 if(je.isDirectory() || !je.getName().endsWith(".class")){
 					 continue;
 				 }
 				 //-6 because of .class
 				String classname=je.getName().substring(0, je.getName().length() - 6);
 				classname=classname.replace('/', '.');
-				loader=new URLClassLoader(url); //resource, close?
 				loader.loadClass(classname);
 			}
 		}
