@@ -2,6 +2,8 @@ package ysitd.ircbot.java.api;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -17,11 +19,12 @@ public class staticMethod {
 	
 	public static void invokeOverrideEvent(CustomEvent e){
 		for(  JIRCBOTListener event :  JIRCBOTPlugin.jircbotlistenerlist ){
-			Method[] methods=event.getClass().getMethods();
+			Method[] methods=event.getClass().getDeclaredMethods();
 			for( Method method : methods ){
-				if( method.getParameterTypes().equals(e) ){ //為什麼沒有contains?
+				if( method.getParameterTypes().length>0 && method.getParameterTypes()[0].isInstance(e) ){ //fixed
+					System.out.println("in");
 					try {
-						method.invoke(e,e); //觸發了自己寫的Method | invoke(owner,args[]) IMPORTENT EVOLUTION!
+						method.invoke(event,e); //觸發了自己寫的Method | invoke(owner,args[]) IMPORTENT EVOLUTION!
 					} catch (IllegalAccessException | IllegalArgumentException
 							| InvocationTargetException e1) {
 						e1.printStackTrace();
@@ -62,7 +65,6 @@ public class staticMethod {
 				try {
 					loader.loadClass(classname).newInstance(); //IMPORTENT EVOLUTION!
 				} catch (InstantiationException | IllegalAccessException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -82,13 +84,16 @@ public class staticMethod {
 		}
 		Properties properties=new Properties();
 		try {
-			properties.load( new FileInputStream(propertiesfile) );
 			
-			properties.put("server" , "irc.freenode.net");
-			properties.put("nickname" , "javabot_ysitd");
-			properties.put("channel" , "#ysitd");
-			properties.put("port" , "6667");
-			properties.put("describe" , "8 * : I am a Bot");
+			properties.load( new FileInputStream(propertiesfile) );
+			if( properties.isEmpty() ){
+				properties.put("server" , "irc.freenode.net");
+				properties.put("nickname" , "javabot_ysitd");
+				properties.put("channel" , "#ysitd");
+				properties.put("port" , "6667");
+				properties.put("describe" , "8 * : I am a Bot");
+				properties.save(new FileOutputStream(propertiesfile) , "initial");
+			}
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -99,6 +104,12 @@ public class staticMethod {
 		JIRCBOTPlugin.setChannel( properties.getProperty("channel")  );
 		JIRCBOTPlugin.setPort( properties.getProperty("port")  );
 		JIRCBOTPlugin.setDescribe( properties.getProperty("describe")  );
+		
+		try {
+			properties.save(new FileOutputStream(propertiesfile) , "finally");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

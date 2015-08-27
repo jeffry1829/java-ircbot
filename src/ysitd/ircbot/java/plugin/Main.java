@@ -2,7 +2,7 @@ package ysitd.ircbot.java.plugin;
 
 import ysitd.ircbot.java.api.*;
 
-public class Main extends JIRCBOTPlugin{
+public class Main extends JIRCBOTPlugin implements JIRCBOTListener{
 	
 	static {
 		JIRCBOTPlugin.registerAnmain(new Main());
@@ -12,6 +12,7 @@ public class Main extends JIRCBOTPlugin{
 	public void onEnable(){
 		System.out.println("Plugin Enabled!");
 		registerAnCommand(this);
+		registerAnEvent(this);
 	}
 	@Override
 	public void onDisable(){
@@ -32,11 +33,12 @@ public class Main extends JIRCBOTPlugin{
 	//感覺像是Override但實際上才不是呢 >_< XDD
 	public void reciveEvent(reciveMessageEvent e){
 		if(e.getALine().startsWith("PING")){
-			getWriter().println("PONG " + e.getALine().substring(5));
+			getWriter().println("PONG " + e.getALine().substring(6));
 			getWriter().flush();
 		}
 		else if( e.getSay().startsWith("ping") ){
 			say( "pong" , getChannel() );
 		}
+		System.out.println(e.getALine());
 	}
 }
