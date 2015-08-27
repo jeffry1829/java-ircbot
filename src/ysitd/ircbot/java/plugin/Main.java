@@ -1,8 +1,13 @@
 package ysitd.ircbot.java.plugin;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import ysitd.ircbot.java.api.*;
 
 public class Main extends JIRCBOTPlugin implements JIRCBOTListener{
+	
+	boolean reachPING;
 	
 	static {
 		JIRCBOTPlugin.registerAnmain(new Main());
@@ -32,9 +37,28 @@ public class Main extends JIRCBOTPlugin implements JIRCBOTListener{
 	}
 	//感覺像是Override但實際上才不是呢 >_< XDD
 	public void reciveEvent(reciveMessageEvent e){
-		if(e.getALine().startsWith("PING")){
-			getWriter().println("PONG " + e.getALine().substring(6));
-			getWriter().flush();
+		/*
+		 * 每60秒PONG一次
+		 */
+		if(e.getALine().startsWith("PING") && reachPING){
+			final String pingIP=e.getALine().substring(6);
+			Thread timepong=new Thread(new Runnable(){
+				@Override
+				public void run(){
+					Timer permin=new Timer();
+					permin.schedule(new TimerTask(){
+						@Override
+						public void run() {
+							getWriter().println("PONG " + pingIP);
+							getWriter().flush();
+						}
+					}, 60);
+				}
+				
+			});
+			timepong.start();
+			reachPING=true;
+			
 		}
 		else if( e.getSay().startsWith("ping") ){
 			say( "pong" , getChannel() );
