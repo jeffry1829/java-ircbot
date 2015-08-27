@@ -23,7 +23,7 @@ public class CommandHandler{
 	}
 
 	
-	public void run() {
+	public void run(String msline) {
 		/*
 		 * It is not an Override method
 		 * Can while( ( msline=reader.readLine() ) != null) run successfully? infinity loop?
@@ -32,19 +32,17 @@ public class CommandHandler{
 		 * 01    ~    10   
 		 */
 		
-			String msline;
-			String username;
+		String username;
 			try{
-				msline=reader.readLine();
-					if( msline.matches(".* PRIVMSG .*") ){
-						username=new String(msline).substring(1 , msline.indexOf("!" , 1)); //result="petjelinux"
-						msline=msline.replaceFirst(":.*:","");//result="要修還需要修一陣子 , 所以能夠給我一段嗎 包括對話"
-						if( msline.startsWith("]") ){
-							for(CommandExecutor command : JIRCBOTPlugin.commandlist){
-								new UserCommandProcessEvent(username , "]" , command.getName() , msline.replaceFirst("]" , "").split(" ") , command).Do();
-							}
+				if( msline.matches(".* PRIVMSG .*") ){
+					username=new String(msline).substring(1 , msline.indexOf("!" , 1)); //result="petjelinux"
+					msline=msline.replaceFirst(":.*:","");//result="要修還需要修一陣子 , 所以能夠給我一段嗎 包括對話"
+					if( msline.startsWith("]") ){
+						for(CommandExecutor command : JIRCBOTPlugin.commandlist){
+							new UserCommandProcessEvent(username , "]" , command.getName() , msline.replaceFirst("]" , "").split(" ") , command).Do();
 						}
 					}
+				}
 			}
 			catch(Exception e){
 				e.printStackTrace();

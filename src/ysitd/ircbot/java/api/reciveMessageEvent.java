@@ -33,7 +33,6 @@ public class reciveMessageEvent implements CustomEvent , Runnable{
 		
 		//invoke overrided event
 		staticMethod.invokeOverrideEvent(this);
-		chandler.run();
 		
 	}
 	
@@ -58,6 +57,7 @@ public class reciveMessageEvent implements CustomEvent , Runnable{
 				while( (readline=reader.readLine()) != null ){
 			
 					Do();
+					chandler.run(readline);
 					
 				}
 			}
