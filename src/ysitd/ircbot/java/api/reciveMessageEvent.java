@@ -15,6 +15,7 @@ public class reciveMessageEvent implements CustomEvent , Runnable{
 	Socket server;
 	BufferedReader reader;
 	String readline;
+	CommandHandler chandler=new CommandHandler();
 	
 	public reciveMessageEvent() throws IOException{
 		server=JIRCBOTPlugin.getServer();
@@ -32,6 +33,7 @@ public class reciveMessageEvent implements CustomEvent , Runnable{
 		
 		//invoke overrided event
 		staticMethod.invokeOverrideEvent(this);
+		chandler.run();
 		
 	}
 	

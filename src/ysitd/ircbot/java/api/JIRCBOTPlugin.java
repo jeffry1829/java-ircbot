@@ -35,9 +35,7 @@ public class JIRCBOTPlugin implements CommandExecutor{
 		
 		registerAnCommand( new CommandExit() );
 		
-		Thread commandHandler=new Thread( new CommandHandler()  );
 		Thread recivemessageEvent=new Thread(  new reciveMessageEvent() );
-		commandHandler.start();
 		recivemessageEvent.start();
 	}
 	

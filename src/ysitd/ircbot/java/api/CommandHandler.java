@@ -5,12 +5,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-public class CommandHandler implements Runnable{
+public class CommandHandler{
 	/*
-	  *其實算是CommandEvent
-	  *不過不使用Event的語法banfile
-	  *@Runnable
-	  *@prefix=\
+	 * 從reciveMessageEvent呼叫 , 避免訊息接收不完全 (Thread互搶)
+	  *@prefix=]
 	  *解析後若為指令
 	  *呼叫UserCommandProcessEvent
 	  *同時傳入資訊
@@ -24,19 +22,20 @@ public class CommandHandler implements Runnable{
 		reader=new BufferedReader( new InputStreamReader( server.getInputStream() ) );
 	}
 
-	@Override
+	
 	public void run() {
 		/*
+		 * It is not an Override method
 		 * Can while( ( msline=reader.readLine() ) != null) run successfully? infinity loop?
 		 * 對話例子/
 		 * :petjelinux!~petjelinu@61-230-157-131.dynamic.hinet.net PRIVMSG #ysitd :要修還需要修一陣子 , 所以能夠給我一段嗎 包括對話
 		 * 01    ~    10   
 		 */
-		while(true){
+		
 			String msline;
 			String username;
 			try{
-				while( ( msline=reader.readLine() ) != null){
+				msline=reader.readLine();
 					if( msline.matches(".* PRIVMSG .*") ){
 						username=new String(msline).substring(1 , msline.indexOf("!" , 1)); //result="petjelinux"
 						msline=msline.replaceFirst(":.*:","");//result="要修還需要修一陣子 , 所以能夠給我一段嗎 包括對話"
@@ -46,13 +45,11 @@ public class CommandHandler implements Runnable{
 							}
 						}
 					}
-			
-				}
 			}
 			catch(Exception e){
 				e.printStackTrace();
 			}
-		}
+		
 	}		
 }
 
