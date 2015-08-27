@@ -13,6 +13,7 @@ public class Start {
 	static {
 		try {
 			staticMethod.loadjar();
+			staticMethod.loadprofile();
 		} catch (ClassNotFoundException e) {
 			System.out.println("沒有plugin喔"); //modifly later
 		}
@@ -24,7 +25,7 @@ public class Start {
 	public static void main(String[] args){
 		
 		try {
-			JIRCBOTPlugin MPlugin = new JIRCBOTPlugin("irc.freenode.net","javabot_ysitd_","#ysitd",6667,"8 * : I am a Bot");
+			JIRCBOTPlugin MPlugin = new JIRCBOTPlugin(JIRCBOTPlugin.getServername() , JIRCBOTPlugin.getNickname() , JIRCBOTPlugin.getChannel() , Integer.parseInt( JIRCBOTPlugin.getPort() ) , JIRCBOTPlugin.getDescribe() );
 			for(JIRCBOTPlugin e : JIRCBOTPlugin.jircbotpluginlist){ //在上面完全執行完之前(連上irc server),就會執行到
 				System.out.println(JIRCBOTPlugin.jircbotpluginlist+" list");
 				e.onEnable();

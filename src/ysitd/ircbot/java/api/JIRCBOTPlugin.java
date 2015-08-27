@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class JIRCBOTPlugin implements CommandExecutor{
 	
-	private static String server , nickname , channel;
+	private static String server , nickname , channel , port , describe;
 	private static Socket socket;
 	private static PrintWriter writer;
 	
@@ -63,12 +63,44 @@ public class JIRCBOTPlugin implements CommandExecutor{
 		return writer;
 	}
 	
+	public static String getServername(){
+		return server;
+	}
+	
 	public static String getNickname(){
 		return nickname;
 	}
 	
 	public static String getChannel(){
 		return channel;
+	}
+	
+	public static String getPort(){
+		return port;
+	}
+	
+	public static String getDescribe(){
+		return describe;
+	}
+	
+	public static void setDescribe(String name){
+		describe=name;
+	}
+	
+	public static void setPort(String name){
+		port=name;
+	}
+	
+	public static void setServername(String name){
+		server=name;
+	}
+	
+	public static void setNickname(String name){
+		nickname=name;
+	}
+	
+	public static void setChannel(String name){
+		channel=name;
 	}
 	
 	public static void say(String tosay , String channel){

@@ -1,6 +1,7 @@
 package ysitd.ircbot.java.api;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -8,6 +9,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Properties;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -65,6 +67,39 @@ public class staticMethod {
 				}
 			}
 		}
+		
+	}
+	
+	public static void loadprofile(){
+		
+		File propertiesfile=new File("./setup.properties");
+		if( !propertiesfile.exists() ){
+			propertiesfile.mkdirs();
+			try {
+				propertiesfile.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		Properties properties=new Properties();
+		try {
+			properties.load( new FileInputStream(propertiesfile) );
+			
+			properties.put("server" , "irc.freenode.net");
+			properties.put("nickname" , "javabot_ysitd");
+			properties.put("channel" , "#ysitd");
+			properties.put("port" , "6667");
+			properties.put("describe" , "8 * : I am a Bot");
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		JIRCBOTPlugin.setServername( properties.getProperty("server") );
+		JIRCBOTPlugin.setNickname( properties.getProperty("nickname")  );
+		JIRCBOTPlugin.setChannel( properties.getProperty("channel")  );
+		JIRCBOTPlugin.setPort( properties.getProperty("port")  );
+		JIRCBOTPlugin.setDescribe( properties.getProperty("describe")  );
 		
 	}
 	
