@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import ysitd.ircbot.java.api.JIRCBOTPlugin;
 import ysitd.ircbot.java.api.staticMethod;
+import ysitd.ircbot.java.api.Permission;
 
 /**
  * 創見於 2015/8/8
@@ -14,6 +15,7 @@ public class Start {
 		try {
 			staticMethod.loadjar();
 			staticMethod.loadprofile();
+			Permission.setupPermissionfile();
 		} catch (ClassNotFoundException e) {
 			System.out.println("沒有plugin喔"); //modifly later
 		}
