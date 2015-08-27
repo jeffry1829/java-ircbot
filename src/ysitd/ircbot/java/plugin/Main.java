@@ -33,6 +33,10 @@ public class Main extends JIRCBOTPlugin{
 	public void reciveEvent(reciveMessageEvent e){
 		if(e.getALine().startsWith("PING")){
 			getWriter().println("PONG " + e.getALine().substring(5));
+			getWriter().flush();
+		}
+		else if( e.getSay().startsWith("ping") ){
+			say( "pong" , getChannel() );
 		}
 	}
 }

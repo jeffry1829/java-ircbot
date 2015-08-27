@@ -74,7 +74,6 @@ public class staticMethod {
 		
 		File propertiesfile=new File("./setup.properties");
 		if( !propertiesfile.exists() ){
-			propertiesfile.mkdirs();
 			try {
 				propertiesfile.createNewFile();
 			} catch (IOException e) {

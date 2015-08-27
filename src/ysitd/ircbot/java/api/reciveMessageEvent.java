@@ -39,6 +39,16 @@ public class reciveMessageEvent implements CustomEvent , Runnable{
 		return readline;
 	}
 	
+	public String getSay(){
+		if( getALine().matches(".* PRIVMSG .*") ){
+			String msline=getALine().replaceFirst(":.*:","");//result="要修還需要修一陣子 , 所以能夠給我一段嗎 包括對話"
+			return msline;
+		}
+		else{
+			return "這不是一段對話喔喔";
+		}
+	}
+	
 	@Override
 	public void run() {
 		
