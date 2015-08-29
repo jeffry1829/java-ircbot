@@ -15,6 +15,10 @@ public class Main extends JIRCBOTPlugin implements JIRCBOTListener{
 		System.out.println("Plugin Enabled!");
 		registerAnCommand(this);
 		registerAnEvent(this);
+		registerAnCommand(new TextImage());
+		CommandBind cb=new CommandBind();
+		registerAnCommand(cb);
+		registerAnEvent(cb);
 	}
 	@Override
 	public void onDisable(){

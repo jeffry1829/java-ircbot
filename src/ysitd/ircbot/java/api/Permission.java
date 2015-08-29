@@ -33,6 +33,9 @@ public class Permission implements Cancelable{
 	}
 	
 	public static String[] getPermission(String username){
+		if(permission.getProperty(username) == null){
+			return new String[]{};
+		}
 		return permission.getProperty(username).split(" ");
 	}
 	
@@ -67,11 +70,11 @@ public class Permission implements Cancelable{
 	
 	public static boolean contains(String username , String permissionnodestring){
 		for(String permissionnode : getPermission(username)){
-			if(permissionnode.equals(permissionnodestring)){
-				return true;
-			}
-			return false;
+				if(permissionnode.equals(permissionnodestring)){
+					return true;
+				}
 		}
+		JIRCBOTPlugin.say("申し訳ありません , あなたのアクセスが十分ではありません", JIRCBOTPlugin.getChannel());
 		return false;
 	}
 	

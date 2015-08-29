@@ -27,9 +27,9 @@ public class Start {
 	public static void main(String[] args){
 		
 		try {
-			JIRCBOTPlugin MPlugin = new JIRCBOTPlugin(JIRCBOTPlugin.getServername() , JIRCBOTPlugin.getNickname() , JIRCBOTPlugin.getChannel() , Integer.parseInt( JIRCBOTPlugin.getPort() ) , JIRCBOTPlugin.getDescribe() );
+			new JIRCBOTPlugin(JIRCBOTPlugin.getServername() , JIRCBOTPlugin.getNickname() , JIRCBOTPlugin.getChannel() , Integer.parseInt( JIRCBOTPlugin.getPort() ) , JIRCBOTPlugin.getDescribe() );
 			for(JIRCBOTPlugin e : JIRCBOTPlugin.jircbotpluginlist){ //在上面完全執行完之前(連上irc server),就會執行到
-				System.out.println(JIRCBOTPlugin.jircbotpluginlist+" list");
+				System.out.println(JIRCBOTPlugin.jircbotpluginlist);
 				e.onEnable();
 			}
 		} catch (IOException e) {

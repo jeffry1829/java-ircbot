@@ -22,7 +22,6 @@ public class staticMethod {
 			Method[] methods=event.getClass().getDeclaredMethods();
 			for( Method method : methods ){
 				if( method.getParameterTypes().length>0 && method.getParameterTypes()[0].isInstance(e) ){ //fixed
-					System.out.println("in");
 					try {
 						method.invoke(event,e); //觸發了自己寫的Method | invoke(owner,args[]) IMPORTENT EVOLUTION!
 					} catch (IllegalAccessException | IllegalArgumentException
@@ -72,6 +71,7 @@ public class staticMethod {
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static void loadprofile(){
 		
 		File propertiesfile=new File("./setup.properties");
