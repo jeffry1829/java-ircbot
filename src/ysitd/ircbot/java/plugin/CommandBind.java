@@ -42,12 +42,12 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 				reader1=new BufferedReader(new FileReader(filefile));
 				writer1=new BufferedWriter(new FileWriter(filefile , true));
 				if(argument[1].equalsIgnoreCase("add")){
-					writer1.write(argument[2] + "|" + argument[3]+"\n");
+					writer1.write(argument[2] + "||" + argument[3]+"\n");
 				}
 				if(argument[1].equalsIgnoreCase("remove")){
 					String sl;
 					while( (sl = reader1.readLine()) != null ){
-						if(sl.split("\\|")[0].contains(argument[2])){
+						if(sl.split("\\|\\|")[0].contains(argument[2])){
 							removeLine(filefile , sl);
 						}
 					}
@@ -65,7 +65,7 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 	
 	public void removeLine(File f , String torem) throws IOException{
 		reader2=new BufferedReader(new FileReader(f));
-		writer2=new BufferedWriter(new FileWriter(f , true));
+		writer2=new BufferedWriter(new FileWriter(f));
 		String l;
 		while( (l=reader2.readLine()) != null){
 			if(l.equals(torem)) continue;
@@ -78,8 +78,8 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 		reader3=new BufferedReader(new FileReader(filefile));
 		String l;
 		while( (l=reader3.readLine()) !=null ){
-			if(event.getSay().contains(l.split("\\|")[0])){
-				JIRCBOTPlugin.say(l.split("\\|")[1], JIRCBOTPlugin.getChannel());
+			if(event.getSay().matches(l.split("\\|\\|")[0])){
+				JIRCBOTPlugin.say(l.split("\\|\\|")[1], JIRCBOTPlugin.getChannel());
 			}
 		}
 	}

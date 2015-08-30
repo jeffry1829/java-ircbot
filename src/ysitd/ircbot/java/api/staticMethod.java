@@ -49,7 +49,8 @@ public class staticMethod {
 		for(int i=0;i<jarfile.size();i++){
 			url[i]=new URL("jar:file:" + jarfile.get(i).getName() + "!/");
 		}
-		loader= URLClassLoader.newInstance(url); //resource, close?
+		loader = URLClassLoader.newInstance(url); //resource, close?
+		JIRCBOTPlugin.loadeDpluginlist.add(loader);
 		
 		for(JarFile j : jarfile){
 			e=j.entries();
@@ -69,6 +70,19 @@ public class staticMethod {
 			}
 		}
 		
+	}
+	
+	public static void Unloadjar() throws ClassNotFoundException, IOException{
+		for(JIRCBOTPlugin jp : JIRCBOTPlugin.jircbotpluginlist){
+			jp.onDisable();
+		}
+		for(@SuppressWarnings("unused") ClassLoader c : JIRCBOTPlugin.loadeDpluginlist){
+			c=null;
+		}
+		JIRCBOTPlugin.loadeDpluginlist.clear();
+		staticMethod.loadjar();
+		staticMethod.loadprofile();
+		Permission.setupPermissionfile();
 	}
 	
 	@SuppressWarnings("deprecation")
