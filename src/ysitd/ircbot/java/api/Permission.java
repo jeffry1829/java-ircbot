@@ -73,10 +73,8 @@ public class Permission implements Cancelable{
 				if(permissionnode.equals(permissionnodestring)){
 					return true;
 				}
-				else{
-					JIRCBOTPlugin.say("申し訳ありません , あなたのアクセスが十分ではありません" , JIRCBOTPlugin.getChannel());
-				}
 		}
+		JIRCBOTPlugin.say("申し訳ありません , あなたのアクセスが十分ではありません" , JIRCBOTPlugin.getChannel());
 		return false;
 	}
 	

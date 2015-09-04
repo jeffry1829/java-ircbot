@@ -17,11 +17,12 @@ public class TextImage implements CommandExecutor{
 	}
 
 	@Override
-	public boolean onCommand(String username , String prefix , String command , String[] argument) {
-		if(argument[0].equals(command) && Permission.contains(username, "operator.textimage")){
+	public boolean onCommand(String username , String prefix , String[] argument) {
+		if(Permission.contains(username, "operator.textimage")){
 			if(!argument[1].isEmpty()){
-				System.out.println(command);
+				System.out.println(getName());
 				getImageBack(argument[1]);
+				return true;
 			}
 			/*else{
 				FileDialog fd = new FileDialog(new JFrame(),"開啟圖檔",FileDialog.LOAD);
@@ -35,6 +36,7 @@ public class TextImage implements CommandExecutor{
 				}
 				getImageBack(bi);
 			}*/
+			return true;
 		}
 		return false;
 	}

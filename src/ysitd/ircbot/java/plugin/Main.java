@@ -37,6 +37,7 @@ public class Main extends JIRCBOTPlugin implements JIRCBOTListener{
 	public boolean onCommand(String username , String prefix , String command , String[] argument){
 		if(argument[0].equals("ping")){
 			say("pong" , getChannel());
+			return true;
 		}
 		return false;	
 	}

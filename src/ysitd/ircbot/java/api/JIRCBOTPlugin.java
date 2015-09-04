@@ -127,5 +127,10 @@ public class JIRCBOTPlugin implements CommandExecutor{
 		}
 		System.exit(0);
 	}
+
+	@Override
+	public boolean onCommand(String username, String prefix, String[] argument) {
+		return false;
+	}
 	
 }

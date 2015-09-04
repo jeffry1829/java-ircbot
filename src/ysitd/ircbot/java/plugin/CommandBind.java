@@ -36,9 +36,8 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 	}
 	
 	@Override
-	public boolean onCommand(String username , String prefix , String command , String[] argument) {
+	public boolean onCommand(String username , String prefix , String[] argument) {
 		try{
-			if(argument[0].equals(command)){
 				reader1=new BufferedReader(new FileReader(filefile));
 				writer1=new BufferedWriter(new FileWriter(filefile , true));
 				if(argument[1].equalsIgnoreCase("add")){
@@ -53,9 +52,6 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 					}
 				}
 				writer1.flush();
-				return true;
-			}
-			return false;
 		}
 		catch(IOException exception){
 			exception.printStackTrace();
