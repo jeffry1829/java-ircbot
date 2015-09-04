@@ -77,7 +77,7 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 		//3 lines here are used to call overrided onCommand method with data from CommandHandler
 		if( !isCanceled() ){
 			for(CommandExecutor commandexe : JIRCBOTPlugin.commandlist){
-				commandexe.onCommand(username , prefix , commandexe.getName() , argument);
+				while( !commandexe.onCommand(username , prefix , commandexe.getName() , argument) );
 			}
 		}
 	}
