@@ -9,17 +9,47 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 	 * 再來使用給予的資訊進行呼叫onCommand
 	 */
 	
-	String username , prefix , command;
-	String[] argument;
+	private String username , prefix;
+	private String[] argument;
 	CommandExecutor ce;
 	private boolean canceled;
 	
-	public UserCommandProcessEvent(String username , String prefix , String command , String[] argument , CommandExecutor ce){
-		this.username=username;
-		this.prefix=prefix;
-		this.command=command;
-		this.argument=argument;
-		this.ce=ce;
+	public UserCommandProcessEvent(String msline){
+		/*
+		 * It is not an Override method
+		 * Can while( ( msline=reader.readLine() ) != null) run successfully? infinity loop?
+		 * 對話例子/
+		 * :petjelinux!~petjelinu@61-230-157-131.dynamic.hinet.net PRIVMSG #ysitd :要修還需要修一陣子 , 所以能夠給我一段嗎 包括對話
+		 * 01    ~    10   
+		 */
+		String username;
+			try{
+				if( msline.matches(".* PRIVMSG .*") ){
+					username=new String(msline).substring(1 , msline.indexOf("!" , 1)); //result="petjelinux"
+					msline=msline.replaceFirst(":.*:","");//result="要修還需要修一陣子 , 所以能夠給我一段嗎 包括對話"
+					if( msline.startsWith("]") ){
+								this.username=username;
+								this.prefix="]";
+								this.argument=msline.replaceFirst("]" , "").split(" ");
+								Do();
+					}
+				}
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+	}
+	
+	public String getUserName(){
+		return username;
+	}
+	
+	public String getprefix(){
+		return prefix;
+	}
+	
+	public String getcommandName(){
+		return argument[0];
 	}
 	
 	@Override
@@ -46,9 +76,10 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 		
 		//3 lines here are used to call overrided onCommand method with data from CommandHandler
 		if( !isCanceled() ){
-			ce.onCommand(username , prefix , command , argument);
+			for(CommandExecutor commandexe : JIRCBOTPlugin.commandlist){
+				commandexe.onCommand(username , prefix , commandexe.getName() , argument);
+			}
 		}
-		
 	}
 	
 }

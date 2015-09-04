@@ -72,19 +72,6 @@ public class staticMethod {
 		
 	}
 	
-	public static void Unloadjar() throws ClassNotFoundException, IOException{
-		for(JIRCBOTPlugin jp : JIRCBOTPlugin.jircbotpluginlist){
-			jp.onDisable();
-		}
-		for(@SuppressWarnings("unused") ClassLoader c : JIRCBOTPlugin.loadeDpluginlist){
-			c=null;
-		}
-		JIRCBOTPlugin.loadeDpluginlist.clear();
-		staticMethod.loadjar();
-		staticMethod.loadprofile();
-		Permission.setupPermissionfile();
-	}
-	
 	@SuppressWarnings("deprecation")
 	public static void loadprofile(){
 		

@@ -18,8 +18,7 @@ public class TextImage implements CommandExecutor{
 
 	@Override
 	public boolean onCommand(String username , String prefix , String command , String[] argument) {
-		if(argument[0].equals(command)){
-			if(!Permission.contains(username , "operator.textimage")) return false;
+		if(argument[0].equals(command) && Permission.contains(username, "operator.textimage")){
 			if(!argument[1].isEmpty()){
 				System.out.println(command);
 				getImageBack(argument[1]);

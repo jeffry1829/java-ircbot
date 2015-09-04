@@ -15,7 +15,6 @@ public class reciveMessageEvent implements CustomEvent , Runnable{
 	Socket server;
 	BufferedReader reader;
 	String readline;
-	CommandHandler chandler=new CommandHandler();
 	
 	public reciveMessageEvent() throws IOException{
 		server=JIRCBOTPlugin.getServer();
@@ -46,7 +45,7 @@ public class reciveMessageEvent implements CustomEvent , Runnable{
 			return msline;
 		}
 		else{
-			return "這不是一段對話喔喔";
+			return "";
 		}
 	}
 	
@@ -57,7 +56,7 @@ public class reciveMessageEvent implements CustomEvent , Runnable{
 				while( (readline=reader.readLine()) != null ){
 			
 					Do();
-					chandler.run(readline);
+					new UserCommandProcessEvent(readline);
 					
 				}
 			}

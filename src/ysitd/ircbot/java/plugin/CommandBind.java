@@ -42,7 +42,7 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 				reader1=new BufferedReader(new FileReader(filefile));
 				writer1=new BufferedWriter(new FileWriter(filefile , true));
 				if(argument[1].equalsIgnoreCase("add")){
-					writer1.write(argument[2] + "||" + argument[3]+"\n");
+					writer1.write(argument[2] + "||" + argument[3] + "\n");
 				}
 				if(argument[1].equalsIgnoreCase("remove")){
 					String sl;
@@ -78,8 +78,8 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 		reader3=new BufferedReader(new FileReader(filefile));
 		String l;
 		while( (l=reader3.readLine()) !=null ){
-			if(event.getSay().matches(l.split("\\|\\|")[0])){
-				JIRCBOTPlugin.say(l.split("\\|\\|")[1], JIRCBOTPlugin.getChannel());
+			if(event.getSay().matches(l.split("\\|\\|")[0].replaceAll("_" , ""))){
+				JIRCBOTPlugin.say(l.split("\\|\\|")[1].replaceAll("_" , ""), JIRCBOTPlugin.getChannel());
 			}
 		}
 	}

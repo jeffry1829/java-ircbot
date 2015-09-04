@@ -4,8 +4,6 @@ import ysitd.ircbot.java.api.*;
 
 public class Main extends JIRCBOTPlugin implements JIRCBOTListener{
 	
-	boolean reachPING;
-	
 	static {
 		JIRCBOTPlugin.registerAnmain(new Main());
 	}
@@ -19,6 +17,12 @@ public class Main extends JIRCBOTPlugin implements JIRCBOTListener{
 		CommandBind cb=new CommandBind();
 		registerAnCommand(cb);
 		registerAnEvent(cb);
+		registerAnEvent(new NoSuch());
+		
+		
+		
+		Thread say_th=new Thread(new ChatInterface());
+		say_th.start();
 	}
 	@Override
 	public void onDisable(){
@@ -38,7 +42,7 @@ public class Main extends JIRCBOTPlugin implements JIRCBOTListener{
 	}
 	//感覺像是Override但實際上才不是呢 >_< XDD
 	public void reciveEvent(reciveMessageEvent e){
-		if(e.getALine().startsWith("PING") && !reachPING){
+		if(e.getALine().startsWith("PING")){
 			String pingIP=e.getALine().substring(6);
 			getWriter().println("PONG " + pingIP);
 			getWriter().flush();
