@@ -15,6 +15,7 @@ public class reciveMessageEvent implements CustomEvent , Runnable{
 	Socket server;
 	BufferedReader reader;
 	String readline;
+	boolean isLogin;
 	
 	public reciveMessageEvent() throws IOException{
 		server=JIRCBOTPlugin.getServer();
@@ -33,6 +34,10 @@ public class reciveMessageEvent implements CustomEvent , Runnable{
 		//invoke overrided event
 		staticMethod.invokeOverrideEvent(this);
 		
+	}
+	
+	public boolean isLogin(){
+		return isLogin;
 	}
 	
 	public String getALine(){
@@ -54,7 +59,8 @@ public class reciveMessageEvent implements CustomEvent , Runnable{
 		while(true){
 			try {
 				while( (readline=reader.readLine()) != null ){
-			
+					
+					if(readline.contains("328")){isLogin=true;}
 					Do();
 					new UserCommandProcessEvent(readline);
 					

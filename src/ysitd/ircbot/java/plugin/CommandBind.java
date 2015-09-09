@@ -61,7 +61,7 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 	
 	public void removeLine(File f , String torem) throws IOException{
 		reader2=new BufferedReader(new FileReader(f));
-		writer2=new BufferedWriter(new FileWriter(f));
+		writer2=new BufferedWriter(new FileWriter(f , true));
 		String l;
 		while( (l=reader2.readLine()) != null){
 			if(l.equals(torem)) continue;
@@ -74,8 +74,8 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 		reader3=new BufferedReader(new FileReader(filefile));
 		String l;
 		while( (l=reader3.readLine()) !=null ){
-			if(event.getSay().matches(l.split("\\|\\|")[0].replaceAll("_" , ""))){
-				JIRCBOTPlugin.say(l.split("\\|\\|")[1].replaceAll("_" , ""), JIRCBOTPlugin.getChannel());
+			if(event.getSay().matches(l.split("\\|\\|")[0].replaceAll("__" , " ").replaceAll("_" , "")) && event.isLogin()){
+				JIRCBOTPlugin.say(l.split("\\|\\|")[1].replaceAll("__" , " ").replaceAll("_" , ""), JIRCBOTPlugin.getChannel());
 			}
 		}
 	}

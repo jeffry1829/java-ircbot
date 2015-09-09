@@ -104,6 +104,11 @@ public class JIRCBOTPlugin implements CommandExecutor{
 	
 	public static void say(String tosay , String channel){
 		 JIRCBOTPlugin.getWriter().println("PRIVMSG "+channel+" : "+tosay);
+		 try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		 JIRCBOTPlugin.getWriter().flush();
 	}
 	
