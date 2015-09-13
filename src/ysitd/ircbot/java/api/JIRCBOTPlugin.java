@@ -14,7 +14,6 @@ public class JIRCBOTPlugin implements CommandExecutor{
 	public static ArrayList<JIRCBOTListener> jircbotlistenerlist=new ArrayList<JIRCBOTListener>();
 	public static ArrayList<CommandExecutor> commandlist=new ArrayList<CommandExecutor>();
 	public static ArrayList<JIRCBOTPlugin> jircbotpluginlist=new ArrayList<JIRCBOTPlugin>();
-	public static ArrayList<ClassLoader> loadeDpluginlist=new ArrayList<ClassLoader>();
 	
 	public JIRCBOTPlugin(String serverr , String nicknamee , String channell , int port , String msg) throws IOException{
 		server=serverr;
@@ -103,12 +102,7 @@ public class JIRCBOTPlugin implements CommandExecutor{
 	}
 	
 	public static void say(String tosay , String channel){
-		 JIRCBOTPlugin.getWriter().println("PRIVMSG "+channel+" : "+tosay);
-		 try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		 JIRCBOTPlugin.getWriter().println("PRIVMSG "+channel+" :"+tosay);
 		 JIRCBOTPlugin.getWriter().flush();
 	}
 	

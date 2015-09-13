@@ -34,7 +34,7 @@ public class Main extends JIRCBOTPlugin implements JIRCBOTListener{
 		return name;
 	}
 	@Override
-	public boolean onCommand(String username , String prefix , String command , String[] argument){
+	public boolean onCommand(String username , String prefix , String[] argument){
 		if(argument[0].equals("ping")){
 			say("pong" , getChannel());
 			return true;
@@ -47,9 +47,6 @@ public class Main extends JIRCBOTPlugin implements JIRCBOTListener{
 			String pingIP=e.getALine().substring(6);
 			getWriter().println("PONG " + pingIP);
 			getWriter().flush();
-		}
-		else if( e.getSay().startsWith("ping") ){
-			say( "pong" , getChannel() );
 		}
 		System.out.println(e.getALine());
 	}

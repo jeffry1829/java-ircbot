@@ -14,6 +14,7 @@ import java.util.Enumeration;
 import java.util.Properties;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+//import org.apache.jmeter.DynamicClassLoader;
 
 public class staticMethod {
 	
@@ -38,7 +39,6 @@ public class staticMethod {
 		JarEntry je;
 		Enumeration<JarEntry> e;
 		ArrayList<JarFile> jarfile=new ArrayList<JarFile>();
-		ClassLoader loader;
 		for(File file : folder.listFiles()){
 			if( file.getName().matches(".*.jar$") &&
 					!file.getName().equals("javaircbot.jar"))
@@ -49,8 +49,9 @@ public class staticMethod {
 		for(int i=0;i<jarfile.size();i++){
 			url[i]=new URL("jar:file:" + jarfile.get(i).getName() + "!/");
 		}
-		loader = URLClassLoader.newInstance(url); //resource, close?
-		JIRCBOTPlugin.loadeDpluginlist.add(loader);
+		ClassLoader loader = URLClassLoader.newInstance(url); //resource, close?
+		//DynamicClassLoader loader = new DynamicClassLoader(url);
+		//DynamicClassLoader.newInstance(url);
 		
 		for(JarFile j : jarfile){
 			e=j.entries();

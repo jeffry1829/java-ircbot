@@ -15,7 +15,7 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 	BufferedReader reader1;
 	BufferedWriter writer1;
 	BufferedReader reader2;
-	BufferedWriter writer2;
+	FileWriter writer2;
 	BufferedReader reader3;
 	BufferedWriter writer3;
 	
@@ -42,6 +42,7 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 				writer1=new BufferedWriter(new FileWriter(filefile , true));
 				if(argument[1].equalsIgnoreCase("add")){
 					writer1.write(argument[2] + "||" + argument[3] + "\n");
+					writer1.flush();
 				}
 				if(argument[1].equalsIgnoreCase("remove")){
 					String sl;
@@ -51,7 +52,6 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 						}
 					}
 				}
-				writer1.flush();
 		}
 		catch(IOException exception){
 			exception.printStackTrace();
@@ -61,13 +61,16 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 	
 	public void removeLine(File f , String torem) throws IOException{
 		reader2=new BufferedReader(new FileReader(f));
-		writer2=new BufferedWriter(new FileWriter(f , true));
+		writer2=new FileWriter(f , false);
 		String l;
+		StringBuffer s=new StringBuffer();
 		while( (l=reader2.readLine()) != null){
-			if(l.equals(torem)) continue;
-			writer2.write(l+"\n");
+			if(l.equals(torem)) {continue;}
+			s.append(l+"\n");
 		}
+		writer2.write(s.toString());
 		writer2.flush();
+		writer2.close();
 	}
 	
 	public void messageEvent(reciveMessageEvent event) throws IOException{
