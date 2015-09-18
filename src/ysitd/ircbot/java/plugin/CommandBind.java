@@ -69,7 +69,6 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 			s.append(l+"\n");
 		}
 		writer2.write(s.toString());
-		writer2.flush();
 		writer2.close();
 	}
 	
