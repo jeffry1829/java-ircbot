@@ -72,5 +72,10 @@ public class TextImage implements CommandExecutor{
 		        JIRCBOTPlugin.say(sbr.toString() , JIRCBOTPlugin.getChannel());
 		}
 	}
+
+	@Override
+	public String getHelp() {
+		return " usage: ]textimage text";
+	}
 	
 }

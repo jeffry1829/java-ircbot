@@ -81,5 +81,12 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 			}
 		}
 	}
+
+	@Override
+	public String getHelp() {
+		return " usage: ]bind add bind bindmsg " +
+				" ]bind remove bind" +
+				"  REGEX WELCOME XDD";
+	}
 	
 }

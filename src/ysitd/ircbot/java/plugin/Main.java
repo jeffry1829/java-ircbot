@@ -18,7 +18,8 @@ public class Main extends JIRCBOTPlugin implements JIRCBOTListener{
 		registerAnCommand(cb);
 		registerAnEvent(cb);
 		registerAnEvent(new NoSuch());
-		
+		registerAnCommand(new CommandJoin());
+		registerAnEvent(new ReJoin());		
 		
 		
 		Thread say_th=new Thread(new ChatInterface());

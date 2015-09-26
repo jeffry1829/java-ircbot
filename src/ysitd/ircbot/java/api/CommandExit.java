@@ -29,5 +29,11 @@ public class CommandExit implements CommandExecutor{
 		}
 		return false;
 	}
+
+	@Override
+	public String getHelp() {
+		return "usage: ]exit" +
+				"  REQUIRE ADMIN";
+	}
 	
 }

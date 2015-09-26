@@ -34,6 +34,7 @@ public class JIRCBOTPlugin implements CommandExecutor{
 		}
 		
 		registerAnCommand( new CommandExit() );
+		registerAnCommand( new CommandHelp() );
 		
 		Thread recivemessageEvent=new Thread(  new reciveMessageEvent() );
 		recivemessageEvent.start();
@@ -130,6 +131,11 @@ public class JIRCBOTPlugin implements CommandExecutor{
 	@Override
 	public boolean onCommand(String username, String prefix, String[] argument) {
 		return false;
+	}
+
+	@Override
+	public String getHelp() {
+		return null;
 	}
 	
 }
