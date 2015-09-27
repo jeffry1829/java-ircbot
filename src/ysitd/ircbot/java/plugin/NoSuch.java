@@ -9,15 +9,17 @@ import ysitd.ircbot.java.api.UserCommandProcessEvent;
 
 public class NoSuch implements JIRCBOTListener {
 	
-	ArrayList<String> cnsl=new ArrayList<String>();
+	static ArrayList<String>  cnsl=new ArrayList<String>();
 	
 	public NoSuch(){
-		for(CommandExecutor acommand : JIRCBOTPlugin.commandlist){
-			cnsl.add(acommand.getName());
-		}
+
 	}
 	
 	public void onCommand(UserCommandProcessEvent ev) {
+		cnsl.clear();
+		for(CommandExecutor acommand : JIRCBOTPlugin.commandlist){
+			cnsl.add(acommand.getName());
+		}
 		if( !cnsl.contains(ev.getcommandName()) ){
 			JIRCBOTPlugin.say("この命令が存在しないです", JIRCBOTPlugin.getChannel());
 			ev.setCanceled(true);
