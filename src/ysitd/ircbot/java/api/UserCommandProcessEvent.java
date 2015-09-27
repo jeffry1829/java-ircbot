@@ -26,7 +26,7 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 			try{
 				if( msline.matches(".* PRIVMSG .*") ){
 					username=new String(msline).substring(1 , msline.indexOf("!" , 1)); //result="petjelinux"
-					msline=msline.replaceFirst(":.*:","");//result="要修還需要修一陣子 , 所以能夠給我一段嗎 包括對話"
+					msline=msline.replaceFirst(":.*?:","");//result="要修還需要修一陣子 , 所以能夠給我一段嗎 包括對話"
 					if( msline.startsWith("]") ){
 								this.username=username;
 								this.prefix="]";
