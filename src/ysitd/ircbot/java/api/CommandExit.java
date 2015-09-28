@@ -22,8 +22,8 @@ public class CommandExit implements CommandExecutor{
 	}
 
 	@Override
-	public boolean onCommand(String username, String prefix , String[] argument) {
-		if( Permission.contains(username, "operator.shutdown")){
+	public boolean onCommand(String username , String prefix , String from, String[] argument) {
+		if( Permission.contains(username, "operator.shutdown",from)){
 			JIRCBOTPlugin.shutdown();
 			return true;
 		}

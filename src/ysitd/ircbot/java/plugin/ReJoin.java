@@ -15,25 +15,23 @@ public class ReJoin implements JIRCBOTListener{
 
 		
 		if(e.getALine().contains("KICK")&&e.getALine().contains(JIRCBOTPlugin.getNickname())){
-			re(null);
+			re(null,e.getFrom());
 		}
 		else if(e.getALine().contains("451 * :You have not registered")){
-			re(JIRCBOTPlugin.getNickname()+Math.round(Math.random()*100));
+			re(JIRCBOTPlugin.getNickname()+Math.round(Math.random()*100),e.getFrom());
 		}
 		
 	}
 	
-	public void re(String name){
+	public void re(String name,String from){
 		try {
 			Thread.sleep(1000L);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		if(name==null){
+		if(name==null){ //KICK
 			PrintWriter writer= JIRCBOTPlugin.getWriter();
-			writer.println("NICK " + JIRCBOTPlugin.getNickname());
-			writer.println("USER " + JIRCBOTPlugin.getNickname() + " " + JIRCBOTPlugin.getDescribe());
-			writer.println("JOIN " + JIRCBOTPlugin.getChannel());
+			writer.println("JOIN " + from);
 			writer.flush();
 		}
 		else{
@@ -42,6 +40,7 @@ public class ReJoin implements JIRCBOTListener{
 			writer.println("USER " + name + " " + JIRCBOTPlugin.getDescribe());
 			writer.println("JOIN " + JIRCBOTPlugin.getChannel());
 			writer.flush();
+			JIRCBOTPlugin.setNickname( name );
 		}
 	}
 } 

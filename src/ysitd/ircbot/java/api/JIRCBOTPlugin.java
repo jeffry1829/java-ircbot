@@ -105,8 +105,9 @@ public class JIRCBOTPlugin implements CommandExecutor{
 	public static void say(String tosay , String channel){
 		 JIRCBOTPlugin.getWriter().println("PRIVMSG "+channel+" :"+tosay);
 		 JIRCBOTPlugin.getWriter().flush();
+		 System.out.println(channel);
 	}
-	
+	@Override
 	public boolean onCommand(String username , String prefix , String command , String[] argument){
 		return false;
 	}
@@ -127,12 +128,7 @@ public class JIRCBOTPlugin implements CommandExecutor{
 		}
 		System.exit(0);
 	}
-
-	@Override
-	public boolean onCommand(String username, String prefix, String[] argument) {
-		return false;
-	}
-
+	
 	@Override
 	public String getHelp() {
 		return null;

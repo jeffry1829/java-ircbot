@@ -14,9 +14,9 @@ public class CommandHelp implements CommandExecutor{
 	}
 
 	@Override
-	public boolean onCommand(String username, String prefix, String[] argument) {
+	public boolean onCommand(String username , String prefix , String from, String[] argument) {
 		for(CommandExecutor e:JIRCBOTPlugin.commandlist){
-			JIRCBOTPlugin.say(e.getHelp(), JIRCBOTPlugin.getChannel());
+			JIRCBOTPlugin.say(e.getHelp(), from);
 		}
 		return true;
 	}

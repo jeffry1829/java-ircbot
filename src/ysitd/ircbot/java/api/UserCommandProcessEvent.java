@@ -9,7 +9,7 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 	 * 再來使用給予的資訊進行呼叫onCommand
 	 */
 	
-	private String username , prefix;
+	private String username , prefix , from;
 	private String[] argument;
 	CommandExecutor ce;
 	private boolean canceled;
@@ -22,12 +22,14 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 		 * :petjelinux!~petjelinu@61-230-157-131.dynamic.hinet.net PRIVMSG #ysitd :要修還需要修一陣子 , 所以能夠給我一段嗎 包括對話
 		 * 01    ~    10   
 		 */
-		String username;
+		String username,from;
 			try{
 				if( msline.matches(".* PRIVMSG .*") ){
+					from=new String(msline).substring(msline.indexOf("#",1),msline.indexOf(":",1)-1);
 					username=new String(msline).substring(1 , msline.indexOf("!" , 1)); //result="petjelinux"
 					msline=msline.replaceFirst(":.*?:","");//result="要修還需要修一陣子 , 所以能夠給我一段嗎 包括對話"
 					if( msline.startsWith("]") ){
+								this.from=from;
 								this.username=username;
 								this.prefix="]";
 								this.argument=msline.replaceFirst("]" , "").split(" ");
@@ -42,6 +44,10 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 	
 	public String getUserName(){
 		return username;
+	}
+	
+	public String getFrom(){
+		return from;
 	}
 	
 	public String getprefix(){
@@ -78,7 +84,7 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 		if( !isCanceled() ){
 			for(CommandExecutor commandexe : JIRCBOTPlugin.commandlist){
 		  		if(commandexe.getName().equals(argument[0])){
-					commandexe.onCommand(username , prefix , argument);
+					commandexe.onCommand(username , prefix , from , argument);
 					return;
 				}
 			}

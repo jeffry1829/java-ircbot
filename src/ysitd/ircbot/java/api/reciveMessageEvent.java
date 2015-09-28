@@ -40,6 +40,10 @@ public class reciveMessageEvent implements CustomEvent , Runnable{
 		return isLogin;
 	}
 	
+	public String getFrom(){
+			return new String(readline).substring(readline.indexOf("#",1),readline.indexOf(":",1)-1);
+	}
+	
 	public String getALine(){
 		return readline;
 	}

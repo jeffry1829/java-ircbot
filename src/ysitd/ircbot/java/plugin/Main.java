@@ -35,9 +35,9 @@ public class Main extends JIRCBOTPlugin implements JIRCBOTListener{
 		return name;
 	}
 	@Override
-	public boolean onCommand(String username , String prefix , String[] argument){
+	public boolean onCommand(String username , String prefix , String from, String[] argument){
 		if(argument[0].equals("ping")){
-			say("pong" , getChannel());
+			say("pong" , from);
 			return true;
 		}
 		return false;	

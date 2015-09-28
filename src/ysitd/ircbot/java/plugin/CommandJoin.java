@@ -1,7 +1,5 @@
 package ysitd.ircbot.java.plugin;
 
-import java.io.PrintWriter;
-
 import ysitd.ircbot.java.api.CommandExecutor;
 import ysitd.ircbot.java.api.JIRCBOTPlugin;
 
@@ -14,31 +12,21 @@ public class CommandJoin implements CommandExecutor{
 	}
 
 	@Override
-	public boolean onCommand(String username, String prefix, String[] argument) {
+	public boolean onCommand(String username , String prefix , String from, String[] argument) {
 	/*
-     * argument[1]==channel [2]==name
+     * argument[1]==channel
      */
-    if(argument.length==2){
-      re(argument[2],argument[1]);
-    }
-		return false;
+		re(argument[1]);
+		return true;
 	}
 
-	public void re(String name , String channel){
-		try {
-			Thread.sleep(1000L);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		PrintWriter writer= JIRCBOTPlugin.getWriter();
-		writer.println("NICK " + name);
-		writer.println("USER " + name + " " + JIRCBOTPlugin.getDescribe());
-		writer.println("JOIN " + channel);
-		writer.flush();
+	public void re(String channel){
+		JIRCBOTPlugin.getWriter().println("JOIN "+channel);
+		JIRCBOTPlugin.getWriter().flush();
 	}
 
 	@Override
 	public String getHelp() {
-		return " usage: ]join channel nickname";
+		return " usage: ]join channel";
 	}
 }

@@ -21,7 +21,7 @@ public class NoSuch implements JIRCBOTListener {
 			cnsl.add(acommand.getName());
 		}
 		if( !cnsl.contains(ev.getcommandName()) ){
-			JIRCBOTPlugin.say("この命令が存在しないです", JIRCBOTPlugin.getChannel());
+			JIRCBOTPlugin.say("この命令が存在しないです", ev.getFrom());
 			ev.setCanceled(true);
 		}
 	}

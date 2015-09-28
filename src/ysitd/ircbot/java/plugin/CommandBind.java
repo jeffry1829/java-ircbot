@@ -36,7 +36,7 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 	}
 	
 	@Override
-	public boolean onCommand(String username , String prefix , String[] argument) {
+	public boolean onCommand(String username , String prefix , String from, String[] argument) {
 		try{
 				reader1=new BufferedReader(new FileReader(filefile));
 				writer1=new BufferedWriter(new FileWriter(filefile , true));
@@ -77,7 +77,7 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 		String l;
 		while( (l=reader3.readLine()) !=null ){
 			if(event.getSay().matches(l.split("\\|\\|")[0].replaceAll("__" , " ").replaceAll("_" , "")) && event.isLogin()){
-				JIRCBOTPlugin.say(l.split("\\|\\|")[1].replaceAll("__" , " ").replaceAll("_" , ""), JIRCBOTPlugin.getChannel());
+				JIRCBOTPlugin.say(l.split("\\|\\|")[1].replaceAll("__" , " ").replaceAll("_" , ""), event.getFrom());
 			}
 		}
 	}

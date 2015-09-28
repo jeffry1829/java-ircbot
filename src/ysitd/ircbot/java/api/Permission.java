@@ -68,13 +68,13 @@ public class Permission implements Cancelable{
 		}
 	}
 	
-	public static boolean contains(String username , String permissionnodestring){
+	public static boolean contains(String username , String permissionnodestring , String from){
 		for(String permissionnode : getPermission(username)){
 				if(permissionnode.equals(permissionnodestring)){
 					return true;
 				}
 		}
-		JIRCBOTPlugin.say("申し訳ありません , あなたのアクセスが十分ではありません" , JIRCBOTPlugin.getChannel());
+		JIRCBOTPlugin.say("申し訳ありません , あなたのアクセスが十分ではありません" , from);
 		return false;
 	}
 	

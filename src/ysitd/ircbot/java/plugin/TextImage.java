@@ -26,21 +26,21 @@ public class TextImage implements CommandExecutor{
 	}
 
 	@Override
-	public boolean onCommand(String username , String prefix , String[] argument) {
-		if(Permission.contains(username, "operator.textimage")){
+	public boolean onCommand(String username , String prefix , String from, String[] argument) {
+		if(Permission.contains(username, "operator.textimage",from)){
 			if(!argument[1].isEmpty()){
 				System.out.println(argument[1]);
 				if(!argument[1].contains("http")){
 					System.out.println(getName());
 						try {
-							getImageBack(argument[1]);
+							getImageBack(argument[1],from);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
 					}
 					else{
 						try {
-							getImage(argument[1]);
+							getImage(argument[1],from);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -72,7 +72,7 @@ public class TextImage implements CommandExecutor{
     double gValue;
     File fi=new File("./image.jpg");
 	
-	public void getImage(String url) throws InterruptedException // Actual method that reads the image.
+	public void getImage(String url , String from) throws InterruptedException // Actual method that reads the image.
 	    {
 	    try {
 	    	Download(url,"./image.jpg");
@@ -92,7 +92,7 @@ public class TextImage implements CommandExecutor{
 	            sb.append(returnStrPos(gValue));// a helper method, see below. This method returns the appropriate character according to the darkness of the pixel.
 	        }
 	        Thread.sleep(1000L);
-	        JIRCBOTPlugin.say(sb.toString() , JIRCBOTPlugin.getChannel());
+	        JIRCBOTPlugin.say(sb.toString() , from);
 	       }
 	       
 	       fi.delete();
@@ -195,7 +195,7 @@ public class TextImage implements CommandExecutor{
 	        
 	    }
 	    
-	public void getImageBack(String lineline) throws InterruptedException{ //使用等寬字體
+	public void getImageBack(String lineline , String from) throws InterruptedException{ //使用等寬字體
 		BufferedImage image = new BufferedImage(144, 32, BufferedImage.TYPE_INT_RGB);
 		Graphics g = image.getGraphics();
 		g.setFont(new Font("Dialog", Font.PLAIN, 24));
@@ -209,7 +209,7 @@ public class TextImage implements CommandExecutor{
 		        sb.append(image.getRGB(x, y) == -16777216 ? " " : image.getRGB(x, y) == -1 ? "#" : "*");
 		    if (sb.toString().trim().isEmpty()) continue;
 		    Thread.sleep(1000L);
-		    JIRCBOTPlugin.say(sb.toString(),JIRCBOTPlugin.getChannel());
+		    JIRCBOTPlugin.say(sb.toString(),from);
 		}
 	}
 
