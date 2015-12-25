@@ -2,9 +2,9 @@ package ysitd.ircbot.java.api;
 
 import java.io.IOException;
 
-import ysitd.ircbot.java.api.CommandExecutor;
+import ysitd.ircbot.java.api.CustomCommandExecutor;
 
-public class CommandReload implements CommandExecutor{
+public class CommandReload implements CustomCommandExecutor{
 
 	@Override
 	public String getName() {
@@ -15,8 +15,8 @@ public class CommandReload implements CommandExecutor{
 	@Override
 	public boolean onCommand(String username , String prefix , String from, String[] argument) {
 		try {
-			staticMethod.loadjar();
-			staticMethod.loadprofile();
+			StaticMethods.loadjar();
+			StaticMethods.loadprofile();
 			Permission.setupPermissionfile();
 		} catch (ClassNotFoundException e) {
 			System.out.println("沒有plugin喔");

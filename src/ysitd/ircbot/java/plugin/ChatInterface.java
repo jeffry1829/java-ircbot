@@ -2,7 +2,7 @@ package ysitd.ircbot.java.plugin;
 
 import java.util.Scanner;
 
-import ysitd.ircbot.java.api.JIRCBOTPlugin;
+import ysitd.ircbot.java.api.PluginMain;
 
 public class ChatInterface implements Runnable{
 	
@@ -13,7 +13,7 @@ public class ChatInterface implements Runnable{
 			Scanner scanner = new Scanner(System.in);
 			String s = null;
 			while( (s=scanner.nextLine()) != null){
-				JIRCBOTPlugin.say(s , JIRCBOTPlugin.getChannel());
+				PluginMain.say(s , PluginMain.getChannel());
 			}
 		}
 	}

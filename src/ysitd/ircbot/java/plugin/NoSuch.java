@@ -2,12 +2,12 @@ package ysitd.ircbot.java.plugin;
 
 import java.util.ArrayList;
 
-import ysitd.ircbot.java.api.CommandExecutor;
-import ysitd.ircbot.java.api.JIRCBOTListener;
-import ysitd.ircbot.java.api.JIRCBOTPlugin;
+import ysitd.ircbot.java.api.CustomCommandExecutor;
+import ysitd.ircbot.java.api.PluginListener;
+import ysitd.ircbot.java.api.PluginMain;
 import ysitd.ircbot.java.api.UserCommandProcessEvent;
 
-public class NoSuch implements JIRCBOTListener {
+public class NoSuch implements PluginListener {
 	
 	static ArrayList<String>  cnsl=new ArrayList<String>();
 	
@@ -17,11 +17,11 @@ public class NoSuch implements JIRCBOTListener {
 	
 	public void onCommand(UserCommandProcessEvent ev) {
 		cnsl.clear();
-		for(CommandExecutor acommand : JIRCBOTPlugin.commandlist){
+		for(CustomCommandExecutor acommand : PluginMain.commandlist){
 			cnsl.add(acommand.getName());
 		}
 		if( !cnsl.contains(ev.getcommandName()) ){
-			JIRCBOTPlugin.say("この命令が存在しないです", ev.getFrom());
+			PluginMain.say("この命令が存在しないです", ev.getFrom());
 			ev.setCanceled(true);
 		}
 	}

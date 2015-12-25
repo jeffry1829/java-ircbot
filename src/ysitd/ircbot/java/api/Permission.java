@@ -74,7 +74,7 @@ public class Permission implements Cancelable{
 					return true;
 				}
 		}
-		JIRCBOTPlugin.say("申し訳ありません , あなたのアクセスが十分ではありません" , from);
+		PluginMain.say("申し訳ありません , あなたのアクセスが十分ではありません" , from);
 		return false;
 	}
 	

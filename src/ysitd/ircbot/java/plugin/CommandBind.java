@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import ysitd.ircbot.java.api.*;
 
-public class CommandBind implements CommandExecutor , JIRCBOTListener{
+public class CommandBind implements CustomCommandExecutor , PluginListener{
 	
 	File filefile=new File("./bindlist");
 	BufferedReader reader1;
@@ -72,12 +72,12 @@ public class CommandBind implements CommandExecutor , JIRCBOTListener{
 		writer2.close();
 	}
 	
-	public void messageEvent(reciveMessageEvent event) throws IOException{
+	public void messageEvent(ReciveMessageEvent event) throws IOException{
 		reader3=new BufferedReader(new FileReader(filefile));
 		String l;
 		while( (l=reader3.readLine()) !=null ){
 			if(event.getSay().matches(l.split("\\|\\|")[0].replaceAll("__" , " ").replaceAll("_" , "")) && event.isLogin()){
-				JIRCBOTPlugin.say(l.split("\\|\\|")[1].replaceAll("__" , " ").replaceAll("_" , ""), event.getFrom());
+				PluginMain.say(l.split("\\|\\|")[1].replaceAll("__" , " ").replaceAll("_" , ""), event.getFrom());
 			}
 		}
 	}

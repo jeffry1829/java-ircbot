@@ -1,6 +1,6 @@
 package ysitd.ircbot.java.api;
 
-public class CommandHelp implements CommandExecutor{
+public class CommandHelp implements CustomCommandExecutor{
 
 	@Override
 	public String getName() {
@@ -15,8 +15,8 @@ public class CommandHelp implements CommandExecutor{
 
 	@Override
 	public boolean onCommand(String username , String prefix , String from, String[] argument) {
-		for(CommandExecutor e:JIRCBOTPlugin.commandlist){
-			JIRCBOTPlugin.say(e.getHelp(), from);
+		for(CustomCommandExecutor e:PluginMain.commandlist){
+			PluginMain.say(e.getHelp(), from);
 		}
 		return true;
 	}

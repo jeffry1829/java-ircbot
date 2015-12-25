@@ -1,5 +1,5 @@
 package ysitd.ircbot.java.api;
 
-public interface JIRCBOTListener {
+public interface PluginListener {
 
 }

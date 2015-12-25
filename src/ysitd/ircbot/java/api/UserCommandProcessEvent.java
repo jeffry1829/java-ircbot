@@ -11,7 +11,7 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 	
 	private String username , prefix , from;
 	private String[] argument;
-	CommandExecutor ce;
+	CustomCommandExecutor ce;
 	private boolean canceled;
 	
 	public UserCommandProcessEvent(String msline){
@@ -27,7 +27,8 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 				if( msline.matches(".* PRIVMSG .*") ){
 					from=new String(msline).substring(msline.indexOf("#",1),msline.indexOf(":",1)-1);
 					username=new String(msline).substring(1 , msline.indexOf("!" , 1)); //result="petjelinux"
-					msline=msline.replaceFirst(":.*?:","");//result="要修還需要修一陣子 , 所以能夠給我一段嗎 包括對話"
+					msline=msline.replaceFirst(":.*#.*?:","");//result="要修還需要修一陣子 , 所以能夠給我一段嗎 包括對話"
+					//我猜這樣就可以了
 					if( msline.startsWith("]") ){
 								this.from=from;
 								this.username=username;
@@ -78,11 +79,11 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 	public void Do() {
 		
 		//invoke overrided event
-		staticMethod.invokeOverrideEvent(this);
+		StaticMethods.invokeOverrideEvent(this);
 		
 		//3 lines here are used to call overrided onCommand method with data from CommandHandler
 		if( !isCanceled() ){
-			for(CommandExecutor commandexe : JIRCBOTPlugin.commandlist){
+			for(CustomCommandExecutor commandexe : PluginMain.commandlist){
 		  		if(commandexe.getName().equals(argument[0])){
 					commandexe.onCommand(username , prefix , from , argument);
 					return;

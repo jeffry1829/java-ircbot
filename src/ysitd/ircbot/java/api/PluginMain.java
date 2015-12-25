@@ -5,17 +5,17 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class JIRCBOTPlugin implements CommandExecutor{
+public class PluginMain implements CustomCommandExecutor{
 	
 	private static String server , nickname , channel , port , describe;
 	private static Socket socket;
 	private static PrintWriter writer;
 	
-	public static ArrayList<JIRCBOTListener> jircbotlistenerlist=new ArrayList<JIRCBOTListener>();
-	public static ArrayList<CommandExecutor> commandlist=new ArrayList<CommandExecutor>();
-	public static ArrayList<JIRCBOTPlugin> jircbotpluginlist=new ArrayList<JIRCBOTPlugin>();
+	public static ArrayList<PluginListener> jircbotlistenerlist=new ArrayList<PluginListener>();
+	public static ArrayList<CustomCommandExecutor> commandlist=new ArrayList<CustomCommandExecutor>();
+	public static ArrayList<PluginMain> jircbotpluginlist=new ArrayList<PluginMain>();
 	
-	public JIRCBOTPlugin(String serverr , String nicknamee , String channell , int port , String msg) throws IOException{
+	public PluginMain(String serverr , String nicknamee , String channell , int port , String msg) throws IOException{
 		server=serverr;
 		nickname=nicknamee;
 		channel=channell;
@@ -36,21 +36,21 @@ public class JIRCBOTPlugin implements CommandExecutor{
 		registerAnCommand( new CommandExit() );
 		registerAnCommand( new CommandHelp() );
 		
-		Thread recivemessageEvent=new Thread(  new reciveMessageEvent() );
+		Thread recivemessageEvent=new Thread(  new ReciveMessageEvent() );
 		recivemessageEvent.start();
 	}
 	
-	public JIRCBOTPlugin(){}
+	public PluginMain(){}
 	
-	public static void registerAnEvent(JIRCBOTListener jircbotlistenertlistener){
+	public static void registerAnEvent(PluginListener jircbotlistenertlistener){
 		jircbotlistenerlist.add(jircbotlistenertlistener);
 	}
 	
-	public static void registerAnCommand(CommandExecutor icommandexecutor){
+	public static void registerAnCommand(CustomCommandExecutor icommandexecutor){
 		commandlist.add(icommandexecutor);
 	}
 	
-	public static void registerAnmain( JIRCBOTPlugin jircbotplugin){
+	public static void registerAnmain( PluginMain jircbotplugin){
 		jircbotpluginlist.add(jircbotplugin);
 	}
 	
@@ -103,8 +103,8 @@ public class JIRCBOTPlugin implements CommandExecutor{
 	}
 	
 	public static void say(String tosay , String channel){
-		 JIRCBOTPlugin.getWriter().println("PRIVMSG "+channel+" :"+tosay);
-		 JIRCBOTPlugin.getWriter().flush();
+		 PluginMain.getWriter().println("PRIVMSG "+channel+" :"+tosay);
+		 PluginMain.getWriter().flush();
 		 System.out.println(channel);
 	}
 	@Override
@@ -123,7 +123,7 @@ public class JIRCBOTPlugin implements CommandExecutor{
 	};
 	/*讓我想想更好的寫法*/
 	static void shutdown(){
-		for(JIRCBOTPlugin e : jircbotpluginlist){
+		for(PluginMain e : jircbotpluginlist){
 			e.onDisable();
 		}
 		System.exit(0);

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-public class reciveMessageEvent implements CustomEvent , Runnable{
+public class ReciveMessageEvent implements CustomEvent , Runnable{
 	
 	/*
 	 * @Runnable
@@ -17,8 +17,8 @@ public class reciveMessageEvent implements CustomEvent , Runnable{
 	String readline;
 	boolean isLogin;
 	
-	public reciveMessageEvent() throws IOException{
-		server=JIRCBOTPlugin.getServer();
+	public ReciveMessageEvent() throws IOException{
+		server=PluginMain.getServer();
 		reader=new BufferedReader( new InputStreamReader( server.getInputStream() ) );
 	}
 	
@@ -32,7 +32,7 @@ public class reciveMessageEvent implements CustomEvent , Runnable{
 	public void Do() {
 		
 		//invoke overrided event
-		staticMethod.invokeOverrideEvent(this);
+		StaticMethods.invokeOverrideEvent(this);
 		
 	}
 	

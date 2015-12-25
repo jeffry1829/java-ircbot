@@ -5,13 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
-public class CommandExit implements CommandExecutor{
+public class CommandExit implements CustomCommandExecutor{
 	
 	Socket server;
 	BufferedReader reader;
 	
 	public CommandExit() throws IOException{
-		server=JIRCBOTPlugin.getServer();
+		server=PluginMain.getServer();
 		reader=new BufferedReader( new InputStreamReader( server.getInputStream() ) );
 	}
 	
@@ -24,7 +24,7 @@ public class CommandExit implements CommandExecutor{
 	@Override
 	public boolean onCommand(String username , String prefix , String from, String[] argument) {
 		if( Permission.contains(username, "operator.shutdown",from)){
-			JIRCBOTPlugin.shutdown();
+			PluginMain.shutdown();
 			return true;
 		}
 		return false;

@@ -2,10 +2,10 @@ package ysitd.ircbot.java.plugin;
 
 import ysitd.ircbot.java.api.*;
 
-public class Main extends JIRCBOTPlugin implements JIRCBOTListener{
+public class Main extends PluginMain implements PluginListener{
 	
 	static {
-		JIRCBOTPlugin.registerAnmain(new Main());
+		PluginMain.registerAnmain(new Main());
 	}
 	
 	@Override
@@ -43,7 +43,7 @@ public class Main extends JIRCBOTPlugin implements JIRCBOTListener{
 		return false;	
 	}
 	//感覺像是Override但實際上才不是呢 >_< XDD
-	public void reciveEvent(reciveMessageEvent e){
+	public void reciveEvent(ReciveMessageEvent e){
 		if(e.getALine().startsWith("PING")){
 			String pingIP=e.getALine().substring(6);
 			getWriter().println("PONG " + pingIP);

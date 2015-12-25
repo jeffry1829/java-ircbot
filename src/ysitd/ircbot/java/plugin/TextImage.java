@@ -17,7 +17,7 @@ import javax.imageio.ImageIO;
 
 import ysitd.ircbot.java.api.*;
 
-public class TextImage implements CommandExecutor{
+public class TextImage implements CustomCommandExecutor{
 
 	@Override
 	public String getName() {
@@ -92,7 +92,7 @@ public class TextImage implements CommandExecutor{
 	            sb.append(returnStrPos(gValue));// a helper method, see below. This method returns the appropriate character according to the darkness of the pixel.
 	        }
 	        Thread.sleep(1000L);
-	        JIRCBOTPlugin.say(sb.toString() , from);
+	        PluginMain.say(sb.toString() , from);
 	       }
 	       
 	       fi.delete();
@@ -209,7 +209,7 @@ public class TextImage implements CommandExecutor{
 		        sb.append(image.getRGB(x, y) == -16777216 ? " " : image.getRGB(x, y) == -1 ? "#" : "*");
 		    if (sb.toString().trim().isEmpty()) continue;
 		    Thread.sleep(1000L);
-		    JIRCBOTPlugin.say(sb.toString(),from);
+		    PluginMain.say(sb.toString(),from);
 		}
 	}
 

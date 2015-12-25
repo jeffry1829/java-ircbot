@@ -1,9 +1,9 @@
 package ysitd.ircbot.java.plugin;
 
-import ysitd.ircbot.java.api.CommandExecutor;
-import ysitd.ircbot.java.api.JIRCBOTPlugin;
+import ysitd.ircbot.java.api.CustomCommandExecutor;
+import ysitd.ircbot.java.api.PluginMain;
 
-public class CommandJoin implements CommandExecutor{
+public class CommandJoin implements CustomCommandExecutor{
 
 	@Override
 	public String getName() {
@@ -21,8 +21,8 @@ public class CommandJoin implements CommandExecutor{
 	}
 
 	public void re(String channel){
-		JIRCBOTPlugin.getWriter().println("JOIN "+channel);
-		JIRCBOTPlugin.getWriter().flush();
+		PluginMain.getWriter().println("JOIN "+channel);
+		PluginMain.getWriter().flush();
 	}
 
 	@Override

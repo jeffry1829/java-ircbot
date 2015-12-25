@@ -16,10 +16,10 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 //import org.apache.jmeter.DynamicClassLoader;
 
-public class staticMethod {
+public class StaticMethods {
 	
 	public static void invokeOverrideEvent(CustomEvent e){
-		for(  JIRCBOTListener event :  JIRCBOTPlugin.jircbotlistenerlist ){
+		for(  PluginListener event :  PluginMain.jircbotlistenerlist ){
 			Method[] methods=event.getClass().getDeclaredMethods();
 			for( Method method : methods ){
 				if( method.getParameterTypes().length>0 && method.getParameterTypes()[0].isInstance(e) ){ //fixed
@@ -33,15 +33,14 @@ public class staticMethod {
 			}
 		}
 	}
-	
+	//更改到./plugins資料夾裡, 以避免不必要的判斷
 	public static void loadjar() throws ClassNotFoundException, IOException{
-		File folder=new File("./");
+		File folder=new File("./plugins");
 		JarEntry je;
 		Enumeration<JarEntry> e;
 		ArrayList<JarFile> jarfile=new ArrayList<JarFile>();
 		for(File file : folder.listFiles()){
-			if( file.getName().matches(".*.jar$") &&
-					!file.getName().equals("javaircbot.jar"))
+			if(file.getName().matches(".*.jar$"))
 				jarfile.add(new JarFile(file.getAbsolutePath()));
 		}
 		
@@ -101,11 +100,11 @@ public class staticMethod {
 			e.printStackTrace();
 		}
 		
-		JIRCBOTPlugin.setServername( properties.getProperty("server") );
-		JIRCBOTPlugin.setNickname( properties.getProperty("nickname")  );
-		JIRCBOTPlugin.setChannel( properties.getProperty("channel")  );
-		JIRCBOTPlugin.setPort( properties.getProperty("port")  );
-		JIRCBOTPlugin.setDescribe( properties.getProperty("describe")  );
+		PluginMain.setServername( properties.getProperty("server") );
+		PluginMain.setNickname( properties.getProperty("nickname")  );
+		PluginMain.setChannel( properties.getProperty("channel")  );
+		PluginMain.setPort( properties.getProperty("port")  );
+		PluginMain.setDescribe( properties.getProperty("describe")  );
 		
 		try {
 			properties.save(new FileOutputStream(propertiesfile) , "finally");
