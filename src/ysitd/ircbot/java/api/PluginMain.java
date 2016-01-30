@@ -108,7 +108,7 @@ public class PluginMain implements CustomCommandExecutor{
 		 System.out.println(channel);
 	}
 	@Override
-	public boolean onCommand(String username , String prefix , String command , String[] argument){
+	public boolean onCommand(String username , String prefix , String command , String[] argument , String[] option){
 		return false;
 	}
 	

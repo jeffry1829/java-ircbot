@@ -36,7 +36,7 @@ public class CommandBind implements CustomCommandExecutor , PluginListener{
 	}
 	
 	@Override
-	public boolean onCommand(String username , String prefix , String from, String[] argument) {
+	public boolean onCommand(String username , String prefix , String from, String[] argument , String[] option) {
 		try{
 				reader1=new BufferedReader(new FileReader(filefile));
 				writer1=new BufferedWriter(new FileWriter(filefile , true));

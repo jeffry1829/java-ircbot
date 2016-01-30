@@ -10,7 +10,7 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 	 */
 	
 	private String username , prefix , from;
-	private String[] argument;
+	private String[] argument,option;
 	CustomCommandExecutor ce;
 	private boolean canceled;
 	
@@ -34,6 +34,7 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 								this.username=username;
 								this.prefix="]";
 								this.argument=msline.replaceFirst("]" , "").split(" ");
+								this.option=processOption(this.argument);
 								Do();
 					}
 				}
@@ -57,6 +58,46 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 	
 	public String getcommandName(){
 		return argument[0];
+	}
+	
+	public String[] processOption(String[] args){ //順便修正了this.argument... 感覺寫得有點醜
+		String[] result=new String[args.length];
+		String preresult="";
+		int null_count=0;
+		boolean clean=false,pastis=false; //if clean => remove this element, if pastis => clean=true;
+		for(int i=0;i<args.length;i++){
+			String element = args[i];
+			clean = true;
+			if(element.matches("/^-[^-]/g")){
+				preresult+=element.replaceFirst("-", "");
+			}else if(element.matches("/^--[^-]/g")){
+				preresult+=element.replaceFirst("--", "");
+			}else{
+				clean = false;
+			}
+			if(pastis || clean){
+				args[i] = "";
+				null_count+=1;
+			}
+			if(element.matches("/^-.*-$/g")){
+				pastis=true;
+				String arg = args[i+1].matches("/^:/g") ? "\\" + args[i+1] : args[i+1];
+				preresult+=(":"+arg);
+			}else{
+				pastis=false;
+			}
+			result[i] = preresult;
+		}
+		String[] replacement_array = new String[args.length-null_count];
+		int replace_now_index=0;
+		for(String element : args){
+			if(!element.equalsIgnoreCase("")){
+				replacement_array[replace_now_index] = element;
+				replace_now_index+=1;
+			}
+		}
+		this.argument = replacement_array; //在這裡更改!
+		return result;
 	}
 	
 	@Override
@@ -85,7 +126,7 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 		if( !isCanceled() ){
 			for(CustomCommandExecutor commandexe : PluginMain.commandlist){
 		  		if(commandexe.getName().equals(argument[0])){
-					commandexe.onCommand(username , prefix , from , argument);
+					commandexe.onCommand(username , prefix , from , argument , option);
 					return;
 				}
 			}

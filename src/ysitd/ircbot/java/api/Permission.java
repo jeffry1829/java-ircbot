@@ -40,8 +40,7 @@ public class Permission implements Cancelable{
 	}
 	
 	public static void putPermissionnode(String username , String permissionnode){
-		if(getPermission(username) == null ||
-				getPermission(username).length==0){
+		if(getPermission(username) == null || getPermission(username).length==0){
 			permission.put(username , permissionnode);
 		}
 		else{

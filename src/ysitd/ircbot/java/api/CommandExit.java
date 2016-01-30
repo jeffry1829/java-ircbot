@@ -22,7 +22,7 @@ public class CommandExit implements CustomCommandExecutor{
 	}
 
 	@Override
-	public boolean onCommand(String username , String prefix , String from, String[] argument) {
+	public boolean onCommand(String username , String prefix , String from, String[] argument , String[] option) {
 		if( Permission.contains(username, "operator.shutdown",from)){
 			PluginMain.shutdown();
 			return true;

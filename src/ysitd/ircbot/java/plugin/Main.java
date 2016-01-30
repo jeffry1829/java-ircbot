@@ -35,7 +35,7 @@ public class Main extends PluginMain implements PluginListener{
 		return name;
 	}
 	@Override
-	public boolean onCommand(String username , String prefix , String from, String[] argument){
+	public boolean onCommand(String username , String prefix , String from, String[] argument , String[] option){
 		if(argument[0].equals("ping")){
 			say("pong" , from);
 			return true;

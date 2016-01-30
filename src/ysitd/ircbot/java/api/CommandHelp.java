@@ -14,7 +14,7 @@ public class CommandHelp implements CustomCommandExecutor{
 	}
 
 	@Override
-	public boolean onCommand(String username , String prefix , String from, String[] argument) {
+	public boolean onCommand(String username , String prefix , String from, String[] argument , String[] option) {
 		for(CustomCommandExecutor e:PluginMain.commandlist){
 			PluginMain.say(e.getHelp(), from);
 		}

@@ -12,7 +12,7 @@ public class CommandJoin implements CustomCommandExecutor{
 	}
 
 	@Override
-	public boolean onCommand(String username , String prefix , String from, String[] argument) {
+	public boolean onCommand(String username , String prefix , String from, String[] argument , String[] option) {
 	/*
      * argument[1]==channel
      */

@@ -13,7 +13,7 @@ public class CommandReload implements CustomCommandExecutor{
 	}
 
 	@Override
-	public boolean onCommand(String username , String prefix , String from, String[] argument) {
+	public boolean onCommand(String username , String prefix , String from, String[] argument , String[] option) {
 		try {
 			StaticMethods.loadjar();
 			StaticMethods.loadprofile();
