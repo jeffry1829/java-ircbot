@@ -32,30 +32,37 @@ public class Permission implements Cancelable{
 		}
 	}
 	
+	//By String Array
 	public static String[] getPermission(String username){
 		if(permission.getProperty(username) == null){
 			return new String[]{};
 		}
 		return permission.getProperty(username).split(" ");
+		
 	}
 	
-	public static void putPermissionnode(String username , String permissionnode){
-		if(getPermission(username) == null || getPermission(username).length==0){
-			permission.put(username , permissionnode);
+	//By String
+	public static String getPermissionByString(String username){
+		if(permission.getProperty(username) == null){
+			return "";
 		}
-		else{
+		return permission.getProperty(username);
+	}
+	/*
+	 * default是一個預設的Permission node的username
+	 */
+	public static void putPermissionnode(String username , String permissionnode){
+		if(getPermission(username).length==0){
+			permission.put(username , permissionnode);
+		}else if(Permission.contains(username, permissionnode)){
+			return;
+		}else{
 			permission.put(username , permission.getProperty(username) + " " + permissionnode.replaceAll(" ", "")  );
 		}
 	}
 	
-	public static void putDefaultPermission(String permissionnode){
-		if(getPermission("default") == null ||
-				getPermission("default").length==0){
-			permission.put("default" , permissionnode);
-		}
-		else{
-			permission.put("default" , permission.getProperty("default") + " " + permissionnode.replaceAll(" ", "")  );
-		}
+	public static void removePermissionnode(String username , String permissionnode){
+		permission.put(username, getPermissionByString(username).replace(permissionnode, ""));
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -67,14 +74,31 @@ public class Permission implements Cancelable{
 		}
 	}
 	
+	//會回傳錯誤的版本
 	public static boolean contains(String username , String permissionnodestring , String from){
 		for(String permissionnode : getPermission(username)){
-				if(permissionnode.equals(permissionnodestring)){
+				if(permissionnode.matches(convert(permissionnodestring))){
 					return true;
 				}
 		}
 		PluginMain.say("申し訳ありません , あなたのアクセスが十分ではありません" , from);
 		return false;
+	}
+	
+	//不向聊天室回傳錯誤的版本
+	public static boolean contains(String username , String permissionnodestring){
+		for(String permissionnode : getPermission(username)){
+				if(permissionnode.matches(convert(permissionnodestring))){
+					return true;
+				}
+		}
+		return false;
+	}
+	
+	public static String convert(String commandspnode){
+		commandspnode = commandspnode.replaceAll("/\\./g", "\\.");
+		commandspnode = commandspnode.replaceAll("/\\*/g", "\\.\\*");
+		return commandspnode;
 	}
 	
 	@Override

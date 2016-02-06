@@ -33,7 +33,7 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 								this.from=from;
 								this.username=username;
 								this.prefix="]";
-								this.argument=msline.replaceFirst("]" , "").split(" ");
+								this.argument=msline.replaceFirst("]" , "").split(" "); //包含指令的名稱
 								this.option=processOption(this.argument);
 								Do();
 					}

@@ -16,11 +16,11 @@ public class CommandJoin implements CustomCommandExecutor{
 	/*
      * argument[1]==channel
      */
-		re(argument[1]);
+		join(argument[1]);
 		return true;
 	}
 
-	public void re(String channel){
+	public void join(String channel){
 		PluginMain.getWriter().println("JOIN "+channel);
 		PluginMain.getWriter().flush();
 	}
