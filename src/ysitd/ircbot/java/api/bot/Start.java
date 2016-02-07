@@ -26,15 +26,10 @@ public class Start {
 	
 	public static void main(String[] args){
 		
-		try {
-			new PluginMain(PluginMain.getServername() , PluginMain.getNickname() , PluginMain.getChannel() , Integer.parseInt( PluginMain.getPort() ) , PluginMain.getDescribe() );
-			for(PluginMain e : PluginMain.jircbotpluginlist){ //在上面完全執行完之前(連上irc server),就會執行到
-				System.out.println(PluginMain.jircbotpluginlist);
-				e.onEnable();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		new PluginMain();
+		for(PluginMain e : PluginMain.jircbotpluginlist){ //在上面完全執行完之前(連上irc server),就會執行到
+			System.out.println(PluginMain.jircbotpluginlist);
+			e.onEnable();
 		}
-		
 	}
 }

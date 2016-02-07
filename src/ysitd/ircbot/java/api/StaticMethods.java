@@ -93,6 +93,8 @@ public class StaticMethods {
 				properties.put("channel" , "#ysitd");
 				properties.put("port" , "6667");
 				properties.put("describe" , "8 * : I am a Bot");
+				properties.put("username" , "javabot_ysitd");
+				properties.put("password" , "botpw");
 				properties.save(new FileOutputStream(propertiesfile) , "initial");
 			}
 			
@@ -103,8 +105,10 @@ public class StaticMethods {
 		PluginMain.setServername( properties.getProperty("server") );
 		PluginMain.setNickname( properties.getProperty("nickname")  );
 		PluginMain.setChannel( properties.getProperty("channel")  );
-		PluginMain.setPort( properties.getProperty("port")  );
+		PluginMain.setPort( Integer.parseInt(properties.getProperty("port"))  );
 		PluginMain.setDescribe( properties.getProperty("describe")  );
+		PluginMain.setUsername( properties.getProperty("username")  );
+		PluginMain.setPassword( properties.getProperty("password")  );
 		
 		try {
 			properties.save(new FileOutputStream(propertiesfile) , "finally");

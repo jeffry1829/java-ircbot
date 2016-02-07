@@ -19,7 +19,7 @@ public class Main extends PluginMain implements PluginListener{
 		registerAnEvent(cb);
 		registerAnEvent(new NoSuch());
 		registerAnCommand(new CommandJoin());
-		registerAnEvent(new ReJoin());
+		//registerAnEvent(new ReJoin());
 		
 		
 		Thread say_th=new Thread(new ChatInterface());
