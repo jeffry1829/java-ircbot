@@ -20,7 +20,9 @@ public class PluginMain implements CustomCommandExecutor{
 	public static ArrayList<CustomCommandExecutor> commandlist=new ArrayList<CustomCommandExecutor>();
 	public static ArrayList<PluginMain> jircbotpluginlist=new ArrayList<PluginMain>();
 	
-	public PluginMain(){
+	public PluginMain(){}
+	
+	public static void Constructor(){
 		try{
 			socket=new Socket(server , port);
 			writer=new PrintWriter(socket.getOutputStream());

@@ -26,7 +26,7 @@ public class Start {
 	
 	public static void main(String[] args){
 		
-		new PluginMain();
+		PluginMain.Constructor();
 		for(PluginMain e : PluginMain.jircbotpluginlist){ //在上面完全執行完之前(連上irc server),就會執行到
 			System.out.println(PluginMain.jircbotpluginlist);
 			e.onEnable();
