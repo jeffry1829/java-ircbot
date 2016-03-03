@@ -42,31 +42,43 @@ public class PluginMain implements CustomCommandExecutor{
 	public static void Login() throws IOException{
 		
 		//程式結構完全被打亂了...
-		BufferedReader reader=new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
+		BufferedReader reader = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
 		BASE64Encoder encoder = new BASE64Encoder();
 		
 		writer.println("CAP REQ :sasl");
 		writer.println("NICK " + nickname);
-		writer.println("USER " + username + " " + describe);
+		writer.println("USER  " + username + " " + describe);
 		writer.flush();
-		while(reader.readLine().matches("/(CAP)&(ACK)&(:sasl)/g")){
+		String s;
+		while((s=reader.readLine())!=null){
+			System.out.println(s);
+			if(!s.matches(".*ACK.*")) continue;
+			System.out.println("接收到ACK了!!!");
 			writer.println("AUTHENTICATE PLAIN");
 			writer.flush();
 			break;
 		}
-		while(reader.readLine().matches("/AUTHENTICATE \\+/g")){
-			byte[] textbyte = (nickname+username+password).getBytes("UTF-8");
+		while((s=reader.readLine())!=null){
+			System.out.println(s);
+			if(!s.matches(".*AUTHENTICATE \\+.*")) continue;
+			byte[] textbyte = (nickname+"\u0000"+username+"\u0000"+password).getBytes("UTF-8");
+			System.out.println(encoder.encode(textbyte));
+			System.out.println(nickname+username+password);
 			writer.println("AUTHENTICATE "+encoder.encode(textbyte));
 			writer.flush();
 			break;
 		}
-		while(reader.readLine().matches("/:SASL authentication successful/g")){
+		while((s=reader.readLine())!=null){
+			System.out.println(s);
+			if(!s.matches(".*successful.*")) continue;	
 			writer.println("CAP END");
 			writer.flush();
 			break;
 		}
 		writer.println("JOIN " + channel);
+		writer.println("msg NickServ IDENTIFY "+nickname+" "+password);
 		writer.flush();
+		reader = null;
 	}
 	
 	public static void registerAnEvent(PluginListener jircbotlistenertlistener){

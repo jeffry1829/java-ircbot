@@ -77,7 +77,7 @@ public class Permission implements Cancelable{
 	//會回傳錯誤的版本
 	public static boolean contains(String username , String permissionnodestring , String from){
 		for(String permissionnode : getPermission(username)){
-				if(permissionnode.matches(convert(permissionnodestring))){
+				if(permissionnode.matches(".*"+permissionnodestring+".*")){
 					return true;
 				}
 		}
@@ -88,17 +88,11 @@ public class Permission implements Cancelable{
 	//不向聊天室回傳錯誤的版本
 	public static boolean contains(String username , String permissionnodestring){
 		for(String permissionnode : getPermission(username)){
-				if(permissionnode.matches(convert(permissionnodestring))){
+				if(permissionnode.matches(".*"+permissionnodestring+".*")){
 					return true;
 				}
 		}
 		return false;
-	}
-	
-	public static String convert(String commandspnode){
-		commandspnode = commandspnode.replaceAll("/\\./g", "\\.");
-		commandspnode = commandspnode.replaceAll("/\\*/g", "\\.\\*");
-		return commandspnode;
 	}
 	
 	@Override

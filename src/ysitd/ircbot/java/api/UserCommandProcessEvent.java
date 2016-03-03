@@ -68,9 +68,9 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 		for(int i=0;i<args.length;i++){
 			String element = args[i];
 			clean = true;
-			if(element.matches("/^-[^-]/g")){
+			if(element.matches("^-[^-].*")){
 				preresult+=element.replaceFirst("-", "");
-			}else if(element.matches("/^--[^-]/g")){
+			}else if(element.matches("^--[^-].*")){
 				preresult+=element.replaceFirst("--", "");
 			}else{
 				clean = false;
@@ -79,9 +79,9 @@ public class UserCommandProcessEvent implements Cancelable , CustomEvent{
 				args[i] = "";
 				null_count+=1;
 			}
-			if(element.matches("/^-.*-$/g")){
+			if(element.matches("^-.*-$")){
 				pastis=true;
-				String arg = args[i+1].matches("/^:/g") ? "\\" + args[i+1] : args[i+1];
+				String arg = args[i+1].matches("^:.*") ? "\\" + args[i+1] : args[i+1];
 				preresult+=(":"+arg);
 			}else{
 				pastis=false;

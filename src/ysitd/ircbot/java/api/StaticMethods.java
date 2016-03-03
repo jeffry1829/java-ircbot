@@ -36,6 +36,9 @@ public class StaticMethods {
 	//更改到./plugins資料夾裡, 以避免不必要的判斷
 	public static void loadjar() throws ClassNotFoundException, IOException{
 		File folder=new File("./plugins");
+		if(!folder.exists()){
+			folder.mkdirs();
+		}
 		JarEntry je;
 		Enumeration<JarEntry> e;
 		ArrayList<JarFile> jarfile=new ArrayList<JarFile>();
