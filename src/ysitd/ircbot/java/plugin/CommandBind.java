@@ -76,7 +76,7 @@ public class CommandBind implements CustomCommandExecutor , PluginListener{
 		reader3=new BufferedReader(new FileReader(filefile));
 		String l;
 		while( (l=reader3.readLine()) !=null ){
-			if(event.getSay().matches(l.split("\\|\\|")[0].replaceAll("__" , " ").replaceAll("_" , "")) && event.isLogin()){
+			if(event.getSay().matches(".*"+l.split("\\|\\|")[0].replaceAll("__" , " ").replaceAll("_" , "")+".*") && event.isLogin()){
 				PluginMain.say(l.split("\\|\\|")[1].replaceAll("__" , " ").replaceAll("_" , ""), event.getFrom());
 			}
 		}

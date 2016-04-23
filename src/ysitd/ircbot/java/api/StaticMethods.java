@@ -36,6 +36,9 @@ public class StaticMethods {
 	//更改到./plugins資料夾裡, 以避免不必要的判斷
 	public static void loadjar() throws ClassNotFoundException, IOException{
 		File folder=new File("./plugins");
+		if(!folder.exists()){
+			folder.mkdirs();
+		}
 		JarEntry je;
 		Enumeration<JarEntry> e;
 		ArrayList<JarFile> jarfile=new ArrayList<JarFile>();
@@ -93,6 +96,8 @@ public class StaticMethods {
 				properties.put("channel" , "#ysitd");
 				properties.put("port" , "6667");
 				properties.put("describe" , "8 * : I am a Bot");
+				properties.put("username" , "javabot_ysitd");
+				properties.put("password" , "botpw");
 				properties.save(new FileOutputStream(propertiesfile) , "initial");
 			}
 			
@@ -103,8 +108,10 @@ public class StaticMethods {
 		PluginMain.setServername( properties.getProperty("server") );
 		PluginMain.setNickname( properties.getProperty("nickname")  );
 		PluginMain.setChannel( properties.getProperty("channel")  );
-		PluginMain.setPort( properties.getProperty("port")  );
+		PluginMain.setPort( Integer.parseInt(properties.getProperty("port"))  );
 		PluginMain.setDescribe( properties.getProperty("describe")  );
+		PluginMain.setUsername( properties.getProperty("username")  );
+		PluginMain.setPassword( properties.getProperty("password")  );
 		
 		try {
 			properties.save(new FileOutputStream(propertiesfile) , "finally");

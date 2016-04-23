@@ -1,13 +1,18 @@
 package ysitd.ircbot.java.api;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import sun.misc.BASE64Encoder;
+
 public class PluginMain implements CustomCommandExecutor{
 	
-	private static String server , nickname , channel , port , describe;
+	private static String server , nickname , channel , describe , username , password;
+	private static int port;
 	private static Socket socket;
 	private static PrintWriter writer;
 	
@@ -15,32 +20,66 @@ public class PluginMain implements CustomCommandExecutor{
 	public static ArrayList<CustomCommandExecutor> commandlist=new ArrayList<CustomCommandExecutor>();
 	public static ArrayList<PluginMain> jircbotpluginlist=new ArrayList<PluginMain>();
 	
-	public PluginMain(String serverr , String nicknamee , String channell , int port , String msg) throws IOException{
-		server=serverr;
-		nickname=nicknamee;
-		channel=channell;
-		
+	public PluginMain(){}
+	
+	public static void Constructor(){
 		try{
 			socket=new Socket(server , port);
 			writer=new PrintWriter(socket.getOutputStream());
 			
-			writer.println("NICK " + nickname);
-			writer.println("USER " + nickname + " " + msg);
-			writer.println("JOIN " + channel);
-			writer.flush();
-		}
-		catch(Exception e){
+			Login();
+			
+			registerAnCommand( new CommandExit() );
+			registerAnCommand( new CommandHelp() );
+			
+			Thread recivemessageEvent=new Thread(  new ReciveMessageEvent() );
+			recivemessageEvent.start();
+		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		registerAnCommand( new CommandExit() );
-		registerAnCommand( new CommandHelp() );
-		
-		Thread recivemessageEvent=new Thread(  new ReciveMessageEvent() );
-		recivemessageEvent.start();
 	}
 	
-	public PluginMain(){}
+	public static void Login() throws IOException{
+		
+		//程式結構完全被打亂了...
+		BufferedReader reader = new BufferedReader( new InputStreamReader( socket.getInputStream() ) );
+		BASE64Encoder encoder = new BASE64Encoder();
+		
+		writer.println("CAP REQ :sasl");
+		writer.println("NICK " + nickname);
+		writer.println("USER  " + username + " " + describe);
+		writer.flush();
+		String s;
+		while((s=reader.readLine())!=null){
+			System.out.println(s);
+			if(!s.matches(".*ACK.*")) continue;
+			System.out.println("接收到ACK了!!!");
+			writer.println("AUTHENTICATE PLAIN");
+			writer.flush();
+			break;
+		}
+		while((s=reader.readLine())!=null){
+			System.out.println(s);
+			if(!s.matches(".*AUTHENTICATE \\+.*")) continue;
+			byte[] textbyte = (nickname+"\u0000"+username+"\u0000"+password).getBytes("UTF-8");
+			System.out.println(encoder.encode(textbyte));
+			System.out.println(nickname+username+password);
+			writer.println("AUTHENTICATE "+encoder.encode(textbyte));
+			writer.flush();
+			break;
+		}
+		while((s=reader.readLine())!=null){
+			System.out.println(s);
+			if(!s.matches(".*successful.*")) continue;	
+			writer.println("CAP END");
+			writer.flush();
+			break;
+		}
+		writer.println("JOIN " + channel);
+		writer.println("msg NickServ IDENTIFY "+nickname+" "+password);
+		writer.flush();
+		reader = null;
+	}
 	
 	public static void registerAnEvent(PluginListener jircbotlistenertlistener){
 		jircbotlistenerlist.add(jircbotlistenertlistener);
@@ -74,7 +113,7 @@ public class PluginMain implements CustomCommandExecutor{
 		return channel;
 	}
 	
-	public static String getPort(){
+	public static int getPort(){
 		return port;
 	}
 	
@@ -82,11 +121,27 @@ public class PluginMain implements CustomCommandExecutor{
 		return describe;
 	}
 	
+	public static String getUsername(){
+		return username;
+	}
+	
+	public static String getPassword(){
+		return password;
+	}
+	
+	public static void setUsername(String name){
+		username=name;
+	}
+	
+	public static void setPassword(String name){
+		password=name;
+	}
+	
 	public static void setDescribe(String name){
 		describe=name;
 	}
 	
-	public static void setPort(String name){
+	public static void setPort(int name){
 		port=name;
 	}
 	
